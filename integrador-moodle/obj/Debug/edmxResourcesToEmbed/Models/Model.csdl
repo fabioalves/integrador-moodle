@@ -1,0 +1,189 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="integradorModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+  <EntityContainer Name="integradorEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Certificado" EntityType="integradorModel.Certificado" />
+    <EntitySet Name="FormaPagamento" EntityType="integradorModel.FormaPagamento" />
+    <EntitySet Name="Matricula" EntityType="integradorModel.Matricula" />
+    <EntitySet Name="Pagamento" EntityType="integradorModel.Pagamento" />
+    <EntitySet Name="UsuarioAdmin" EntityType="integradorModel.UsuarioAdmin" />
+    <AssociationSet Name="FK_Certificado_Matricula" Association="integradorModel.FK_Certificado_Matricula">
+      <End Role="Matricula" EntitySet="Matricula" />
+      <End Role="Certificado" EntitySet="Certificado" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Pagamento_FormaPagamento" Association="integradorModel.FK_Pagamento_FormaPagamento">
+      <End Role="FormaPagamento" EntitySet="FormaPagamento" />
+      <End Role="Pagamento" EntitySet="Pagamento" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Pagamento_Matricula" Association="integradorModel.FK_Pagamento_Matricula">
+      <End Role="Matricula" EntitySet="Matricula" />
+      <End Role="Pagamento" EntitySet="Pagamento" />
+    </AssociationSet>
+    <EntitySet Name="Curso" EntityType="integradorModel.Curso" />
+    <AssociationSet Name="FK_Matricula_Curso" Association="integradorModel.FK_Matricula_Curso">
+      <End Role="Curso" EntitySet="Curso" />
+      <End Role="Matricula" EntitySet="Matricula" />
+    </AssociationSet>
+    <EntitySet Name="Aluno" EntityType="integradorModel.Aluno" />
+    <AssociationSet Name="FK_Matricula_Aluno" Association="integradorModel.FK_Matricula_Aluno">
+      <End Role="Aluno" EntitySet="Aluno" />
+      <End Role="Matricula" EntitySet="Matricula" />
+    </AssociationSet>
+    <EntitySet Name="UF" EntityType="integradorModel.UF" />
+  </EntityContainer>
+  <EntityType Name="Certificado">
+    <Key>
+      <PropertyRef Name="certificadoUID" />
+    </Key>
+    <Property Name="certificadoUID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="matriculaUID" Type="Int32" Nullable="false" />
+    <Property Name="descricao" Type="String" Nullable="false" MaxLength="200" Unicode="false" FixedLength="false" />
+    <Property Name="statusGerado" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Matricula" Relationship="integradorModel.FK_Certificado_Matricula" FromRole="Certificado" ToRole="Matricula" />
+  </EntityType>
+  <EntityType Name="FormaPagamento">
+    <Key>
+      <PropertyRef Name="formaPagamentoUID" />
+    </Key>
+    <Property Name="formaPagamentoUID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="descricao" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+    <NavigationProperty Name="Pagamento" Relationship="integradorModel.FK_Pagamento_FormaPagamento" FromRole="FormaPagamento" ToRole="Pagamento" />
+  </EntityType>
+  <EntityType Name="Matricula">
+    <Key>
+      <PropertyRef Name="matriculaUID" />
+    </Key>
+    <Property Name="matriculaUID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="alunoUID" Type="Int32" Nullable="false" />
+    <Property Name="cursoUID" Type="Int32" Nullable="false" />
+    <Property Name="status" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Certificado" Relationship="integradorModel.FK_Certificado_Matricula" FromRole="Matricula" ToRole="Certificado" />
+    <NavigationProperty Name="Pagamento" Relationship="integradorModel.FK_Pagamento_Matricula" FromRole="Matricula" ToRole="Pagamento" />
+    <NavigationProperty Name="Curso" Relationship="integradorModel.FK_Matricula_Curso" FromRole="Matricula" ToRole="Curso" />
+    <NavigationProperty Name="Aluno" Relationship="integradorModel.FK_Matricula_Aluno" FromRole="Matricula" ToRole="Aluno" />
+  </EntityType>
+  <EntityType Name="Pagamento">
+    <Key>
+      <PropertyRef Name="pagamentoUID" />
+    </Key>
+    <Property Name="pagamentoUID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="matriculaUID" Type="Int32" Nullable="false" />
+    <Property Name="formaPagamentoUID" Type="Int32" Nullable="false" />
+    <Property Name="valor" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+    <Property Name="parcelas" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="FormaPagamento" Relationship="integradorModel.FK_Pagamento_FormaPagamento" FromRole="Pagamento" ToRole="FormaPagamento" />
+    <NavigationProperty Name="Matricula" Relationship="integradorModel.FK_Pagamento_Matricula" FromRole="Pagamento" ToRole="Matricula" />
+  </EntityType>
+  <EntityType Name="UsuarioAdmin">
+    <Key>
+      <PropertyRef Name="usuarioUID" />
+    </Key>
+    <Property Name="usuarioUID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="login" Type="String" Nullable="false" MaxLength="11" Unicode="false" FixedLength="false" />
+    <Property Name="senha" Type="String" Nullable="false" MaxLength="10" Unicode="false" FixedLength="false" />
+  </EntityType>
+  <Association Name="FK_Certificado_Matricula">
+    <End Role="Matricula" Type="integradorModel.Matricula" Multiplicity="1" />
+    <End Role="Certificado" Type="integradorModel.Certificado" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Matricula">
+        <PropertyRef Name="matriculaUID" />
+      </Principal>
+      <Dependent Role="Certificado">
+        <PropertyRef Name="matriculaUID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Pagamento_FormaPagamento">
+    <End Role="FormaPagamento" Type="integradorModel.FormaPagamento" Multiplicity="1" />
+    <End Role="Pagamento" Type="integradorModel.Pagamento" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="FormaPagamento">
+        <PropertyRef Name="formaPagamentoUID" />
+      </Principal>
+      <Dependent Role="Pagamento">
+        <PropertyRef Name="formaPagamentoUID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Pagamento_Matricula">
+    <End Role="Matricula" Type="integradorModel.Matricula" Multiplicity="1" />
+    <End Role="Pagamento" Type="integradorModel.Pagamento" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Matricula">
+        <PropertyRef Name="matriculaUID" />
+      </Principal>
+      <Dependent Role="Pagamento">
+        <PropertyRef Name="matriculaUID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="Curso">
+    <Key>
+      <PropertyRef Name="cursoUID" />
+    </Key>
+    <Property Type="Int32" Name="cursoUID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Type="String" Name="nomeBreve" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="fullname" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="descricao" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="objetivos" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="competencias" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="publicoalvo" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="topicos" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="descricaoFormaPagamento" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="idmoodle" Nullable="false" />
+    <NavigationProperty Name="Matricula" Relationship="integradorModel.FK_Matricula_Curso" FromRole="Curso" ToRole="Matricula" />
+  </EntityType>
+  <Association Name="FK_Matricula_Curso">
+    <End Type="integradorModel.Curso" Role="Curso" Multiplicity="1" />
+    <End Type="integradorModel.Matricula" Role="Matricula" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Curso">
+        <PropertyRef Name="cursoUID" />
+      </Principal>
+      <Dependent Role="Matricula">
+        <PropertyRef Name="cursoUID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="Aluno">
+    <Key>
+      <PropertyRef Name="alunoUID" />
+    </Key>
+    <Property Type="Int32" Name="alunoUID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Type="String" Name="nome" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="cpf" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="DateTime" Name="dataNascimento" Nullable="false" />
+    <Property Type="Int32" Name="sexo" Nullable="false" />
+    <Property Type="String" Name="celular" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="telefoneFixo" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="endereco" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="bairro" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="cidade" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="cep" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="estado" Nullable="false" MaxLength="2" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="login" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="senha" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Matricula" Relationship="integradorModel.FK_Matricula_Aluno" FromRole="Aluno" ToRole="Matricula" />
+    <Property Type="String" Name="email" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <Association Name="FK_Matricula_Aluno">
+    <End Type="integradorModel.Aluno" Role="Aluno" Multiplicity="1" />
+    <End Type="integradorModel.Matricula" Role="Matricula" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Aluno">
+        <PropertyRef Name="alunoUID" />
+      </Principal>
+      <Dependent Role="Matricula">
+        <PropertyRef Name="alunoUID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="UF">
+    <Key>
+      <PropertyRef Name="ufUID" />
+    </Key>
+    <Property Type="Int32" Name="ufUID" Nullable="false" />
+    <Property Type="String" Name="abr" Nullable="false" MaxLength="2" FixedLength="true" Unicode="true" />
+    <Property Type="String" Name="estado" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+  </EntityType>
+</Schema>

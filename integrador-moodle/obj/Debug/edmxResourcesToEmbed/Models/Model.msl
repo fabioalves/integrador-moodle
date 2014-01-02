@@ -1,0 +1,99 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="integradorModelStoreContainer" CdmEntityContainer="integradorEntities">
+    <EntitySetMapping Name="Certificado">
+      <EntityTypeMapping TypeName="integradorModel.Certificado">
+        <MappingFragment StoreEntitySet="Certificado">
+          <ScalarProperty Name="certificadoUID" ColumnName="certificadoUID" />
+          <ScalarProperty Name="matriculaUID" ColumnName="matriculaUID" />
+          <ScalarProperty Name="descricao" ColumnName="descricao" />
+          <ScalarProperty Name="statusGerado" ColumnName="statusGerado" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="FormaPagamento">
+      <EntityTypeMapping TypeName="integradorModel.FormaPagamento">
+        <MappingFragment StoreEntitySet="FormaPagamento">
+          <ScalarProperty Name="formaPagamentoUID" ColumnName="formaPagamentoUID" />
+          <ScalarProperty Name="descricao" ColumnName="descricao" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Matricula">
+      <EntityTypeMapping TypeName="integradorModel.Matricula">
+        <MappingFragment StoreEntitySet="Matricula">
+          <ScalarProperty Name="matriculaUID" ColumnName="matriculaUID" />
+          <ScalarProperty Name="alunoUID" ColumnName="alunoUID" />
+          <ScalarProperty Name="cursoUID" ColumnName="cursoUID" />
+          <ScalarProperty Name="status" ColumnName="status" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Pagamento">
+      <EntityTypeMapping TypeName="integradorModel.Pagamento">
+        <MappingFragment StoreEntitySet="Pagamento">
+          <ScalarProperty Name="pagamentoUID" ColumnName="pagamentoUID" />
+          <ScalarProperty Name="matriculaUID" ColumnName="matriculaUID" />
+          <ScalarProperty Name="formaPagamentoUID" ColumnName="formaPagamentoUID" />
+          <ScalarProperty Name="valor" ColumnName="valor" />
+          <ScalarProperty Name="parcelas" ColumnName="parcelas" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UsuarioAdmin">
+      <EntityTypeMapping TypeName="integradorModel.UsuarioAdmin">
+        <MappingFragment StoreEntitySet="UsuarioAdmin">
+          <ScalarProperty Name="usuarioUID" ColumnName="usuarioUID" />
+          <ScalarProperty Name="login" ColumnName="login" />
+          <ScalarProperty Name="senha" ColumnName="senha" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Curso">
+      <EntityTypeMapping TypeName="integradorModel.Curso">
+        <MappingFragment StoreEntitySet="Curso">
+          <ScalarProperty Name="idmoodle" ColumnName="idmoodle" />
+          <ScalarProperty Name="descricaoFormaPagamento" ColumnName="descricaoFormaPagamento" />
+          <ScalarProperty Name="topicos" ColumnName="topicos" />
+          <ScalarProperty Name="publicoalvo" ColumnName="publicoalvo" />
+          <ScalarProperty Name="competencias" ColumnName="competencias" />
+          <ScalarProperty Name="objetivos" ColumnName="objetivos" />
+          <ScalarProperty Name="descricao" ColumnName="descricao" />
+          <ScalarProperty Name="fullname" ColumnName="fullname" />
+          <ScalarProperty Name="nomeBreve" ColumnName="nomeBreve" />
+          <ScalarProperty Name="cursoUID" ColumnName="cursoUID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Aluno">
+      <EntityTypeMapping TypeName="integradorModel.Aluno">
+        <MappingFragment StoreEntitySet="Aluno">
+          <ScalarProperty Name="email" ColumnName="email" />
+          <ScalarProperty Name="senha" ColumnName="senha" />
+          <ScalarProperty Name="login" ColumnName="login" />
+          <ScalarProperty Name="estado" ColumnName="estado" />
+          <ScalarProperty Name="cep" ColumnName="cep" />
+          <ScalarProperty Name="cidade" ColumnName="cidade" />
+          <ScalarProperty Name="bairro" ColumnName="bairro" />
+          <ScalarProperty Name="endereco" ColumnName="endereco" />
+          <ScalarProperty Name="telefoneFixo" ColumnName="telefoneFixo" />
+          <ScalarProperty Name="celular" ColumnName="celular" />
+          <ScalarProperty Name="sexo" ColumnName="sexo" />
+          <ScalarProperty Name="dataNascimento" ColumnName="dataNascimento" />
+          <ScalarProperty Name="cpf" ColumnName="cpf" />
+          <ScalarProperty Name="nome" ColumnName="nome" />
+          <ScalarProperty Name="alunoUID" ColumnName="alunoUID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UF">
+      <EntityTypeMapping TypeName="integradorModel.UF">
+        <MappingFragment StoreEntitySet="UF">
+          <ScalarProperty Name="estado" ColumnName="estado" />
+          <ScalarProperty Name="abr" ColumnName="abr" />
+          <ScalarProperty Name="ufUID" ColumnName="ufUID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

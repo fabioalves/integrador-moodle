@@ -1,0 +1,17 @@
+﻿@{
+    ViewBag.Title = "PossuiCadastro";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<fieldset>
+    <legend>Possui Cadastro?</legend>
+    <h2>Já tenho cadastro</h2>
+    <p>
+        Se você já fez algum curso não precisa fazer cadastro. @Html.ActionLink("Clique aqui", "Login", "Aluno", new { id = ViewBag.id }, null)          
+    </p>
+
+    <h2>Não tenho cadastro</h2>
+    <p>
+        Se você ainda não fez nenhum curso. @Html.ActionLink("Clique aqui", "Cadastrar", "Aluno", new { id = ViewBag.id }, null)          
+    </p>
+</fieldset>

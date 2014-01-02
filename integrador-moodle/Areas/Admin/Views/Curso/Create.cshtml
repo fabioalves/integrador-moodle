@@ -1,0 +1,92 @@
+﻿@model integrador_moodle.Models.Curso
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Cadastrar Novo</h2>
+
+@using (Html.BeginForm()) {
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>Curso</legend>
+
+        <div class="editor-label">
+            Nome Breve
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.nomeBreve)
+            @Html.ValidationMessageFor(model => model.nomeBreve)
+        </div>
+
+        <div class="editor-label">
+            Nome Completo
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.fullname)
+            @Html.ValidationMessageFor(model => model.fullname)
+        </div>
+
+        <div class="editor-label">
+            Descrição
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.descricao)
+            @Html.ValidationMessageFor(model => model.descricao)
+        </div>
+
+        <div class="editor-label">
+            Objetivos
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.objetivos)
+            @Html.ValidationMessageFor(model => model.objetivos)
+        </div>
+
+        <div class="editor-label">
+            Competências
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.competencias)
+            @Html.ValidationMessageFor(model => model.competencias)
+        </div>
+
+        <div class="editor-label">
+            Público Alvo
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.publicoalvo)
+            @Html.ValidationMessageFor(model => model.publicoalvo)
+        </div>
+
+        <div class="editor-label">
+            Tópicos
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.topicos)
+            @Html.ValidationMessageFor(model => model.topicos)
+        </div>
+
+        <div class="editor-label">
+            Forma de Pagamento
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.descricaoFormaPagamento)
+            @Html.ValidationMessageFor(model => model.descricaoFormaPagamento)
+        </div>
+
+        <p>
+            <input type="submit" value="Cadastrar" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
