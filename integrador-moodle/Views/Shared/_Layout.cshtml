@@ -6,11 +6,15 @@
     <title>@ViewBag.Title</title>
 
     @Styles.Render("~/Content/bootstrap/css/bootstrap.min.css")
+    @Styles.Render("~/Content/Site.css")
     @Scripts.Render("~/Content/bootstrap/js/bootstrap.min.js")
+    
+
 </head>
 <body>
     @RenderBody()
 
     @RenderSection("scripts", required: false)
+    @Scripts.Render("http://code.jquery.com/jquery-1.10.2.min.js")
 </body>
 </html>

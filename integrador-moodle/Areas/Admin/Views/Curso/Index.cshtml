@@ -10,7 +10,7 @@
 <p>
     @Html.ActionLink("Cadastrar Novo", "Create")
 </p>
-<table>
+<table class="table table-striped">
     <tr>
         <th>
             Nome Breve
@@ -68,8 +68,10 @@
             @Html.DisplayFor(modelItem => item.descricaoFormaPagamento)
         </td>
         <td>
-            @Html.ActionLink("Editar", "Edit", new { id = item.cursoUID }) |
-            @Html.ActionLink("Excluir", "Delete", new { id = item.cursoUID })
+            <i class="icon-remove"></i>
+            <i class="icon-edit"></i>
+           @* @Html.ActionLink("Editar", "Edit", new { id = item.cursoUID }) |
+            @Html.ActionLink("Excluir", "Delete", new { id = item.cursoUID })*@
         </td>
     </tr>
     }

@@ -1,7 +1,39 @@
-﻿@{
+﻿@model IEnumerable<integrador_moodle.Models.Curso>
+@{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <h2>Página Inicial</h2>
-@Html.ActionLink("Inscreva-se", "PossuiCadastro", "Inscricao", new { id = 1 }, null)
+
+@if (Model != null)
+{
+    <table class="table table-striped">
+        <thead>
+            <th>
+                Nome do Curso
+            </th>
+            <th>
+                Descrição
+            </th>
+            <th>
+                Opções
+            </th>
+        </thead>
+        <tbody>
+    @foreach (var curso in Model)
+    {
+            <td>
+                @curso.fullname
+            </td>
+            <td>
+                @curso.descricao
+            </td>        
+            <td>
+                @Html.ActionLink("Inscreva-se", "PossuiCadastro", "Inscricao", new { id = curso.cursoUID }, null)                
+            </td>
+    }
+        </tbody>
+    </table>
+}
+

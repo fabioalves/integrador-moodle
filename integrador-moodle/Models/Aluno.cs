@@ -22,25 +22,24 @@ using System.ComponentModel.DataAnnotations;
     
         public int alunoUID { get; set; }
 
+        
         [StringLength(100, ErrorMessage = "O tamanho máximo são 100 caracteres."), Required]
         public string nome { get; set; }
-        
+
         [StringLength(11, ErrorMessage = "O tamanho máximo são 11 caracteres."), Required]
         public string cpf { get; set; }
 
         [Required]
-        [DataType(DataType.Date), DisplayFormat(DataFormatString = "{0:dd/MM/yy}", ApplyFormatInEditMode = true)]
+        [DataType(DataType.Date), DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         public System.DateTime dataNascimento { get; set; }
 
         [Required]
         public int sexo { get; set; }
 
         [Required]
-        [DataType(DataType.PhoneNumber)]
         public string celular { get; set; }
         
         [Required]
-        [DataType(DataType.PhoneNumber)]
         public string telefoneFixo { get; set; }
         
         [Required]

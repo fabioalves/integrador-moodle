@@ -1,43 +1,20 @@
-﻿@model integrador_moodle.Models.Aluno
+﻿@model integrador_moodle.Models.ViewModels.CadastroAlunoViewModel
 
 @{
     ViewBag.Title = "Cadastrar";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-@Styles.Render("http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css")
-@Scripts.Render("http://code.jquery.com/jquery-1.10.2.min.js")
-@Scripts.Render("http://code.jquery.com/ui/1.10.3/jquery-ui.js")
 
-<style>
-label {
-    width:140px;    
-    float:left;
-    text-align:right;
-    padding-right:5px;
-}
-
-#button 
+@if (!String.IsNullOrEmpty(ViewBag.errormessage))
 {
-    margin-left:145px;
+<div class="alert alert-error">
+    @ViewBag.errormessage   
+</div>
 }
-</style>
 
-  <script>
-      $(function () {
-          $("#datepicker").datepicker({
-            dateFormat: 'dd/mm/yy',
-            dayNames: ['Domingo','Segunda','Terça','Quarta','Quinta','Sexta','Sábado'],
-            dayNamesMin: ['D','S','T','Q','Q','S','S','D'],
-            dayNamesShort: ['Dom','Seg','Ter','Qua','Qui','Sex','Sáb','Dom'],
-            monthNames: ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'],
-            monthNamesShort: ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'],
-            nextText: 'Próximo',
-            prevText: 'Anterior'
-        });
-    });
-  </script>
 
-@using (Html.BeginForm()) {
+@using (Html.BeginForm("Create", "Aluno", new { id = ViewBag.id }, FormMethod.Post, null))
+{
     @Html.ValidationSummary(true)
 
     <fieldset>
@@ -46,8 +23,15 @@ label {
         <div class="editor"><label>
             Nome
         </label>
-            @Html.TextBoxFor(model => model.nome, new { @class = "input-xxlarge" })
+            @Html.TextBoxFor(model => model.nome, new { @class = "input-xlarge" })
             @Html.ValidationMessageFor(model => model.nome)
+        </div>
+
+        <div class="editor"><label>
+            Sobrenome
+        </label>
+            @Html.TextBoxFor(model => model.sobrenome, new { @class = "input-xlarge" })
+            @Html.ValidationMessageFor(model => model.sobrenome)
         </div>
         
         <div class="editor"><label>
@@ -60,7 +44,7 @@ label {
          <div class="editor"><label>
             Senha
         </label>
-            @Html.EditorFor(model => model.senha)
+            @Html.PasswordFor(model => model.senha)
             @Html.ValidationMessageFor(model => model.senha)
         </div>
         

@@ -4,6 +4,9 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using integrador_moodle.Models;
+using integrador_moodle.Models.ViewModels;
+using integrador_moodle.Models.Moodle;
+using integrador_moodle.Controllers.Moodle;
 
 namespace integrador_moodle.Controllers
 {
@@ -11,11 +14,28 @@ namespace integrador_moodle.Controllers
     {
         //
         // GET: /Aluno/
-
+        [HttpGet]
         public ActionResult Login(int id)
         {
             ViewBag.id = id;
             return View(new integrador_moodle.Areas.Admin.Models.LoginModel());
+        }
+
+        [HttpPost]
+        public ActionResult Login(integrador_moodle.Areas.Admin.Models.LoginModel model, int id)
+        {
+            integradorEntities db = new integradorEntities();
+            var aluno = db.Aluno.Where(a => a.email.Equals(model.Username) && a.senha.Equals(model.Password))
+                        .SingleOrDefault();
+
+            if (aluno != null)
+            {
+                return RedirectToAction("Index", "Pagamento", new { id = id });
+            }
+            else
+            {
+                return RedirectToAction("Login", new { id = id });
+            }            
         }
 
         public ActionResult Cadastrar(int id)
@@ -30,11 +50,86 @@ namespace integrador_moodle.Controllers
                 estados.Add(new SelectListItem()
                 {
                     Text = uf.estado,
-                    Value = uf.estado
+                    Value = uf.abr
                 });
             }
             ViewBag.estados = estados;
-            return View(new Aluno());
+
+            if (TempData["message"] != null)
+            {
+                ViewBag.errormessage = TempData["message"];
+            }
+
+            return View(new CadastroAlunoViewModel());
         }
+
+        public ActionResult Create(CadastroAlunoViewModel model, int id)
+        {
+            if (ModelState.IsValid)
+            {
+                integradorEntities db = new integradorEntities();
+                Aluno aluno = new Aluno()
+                {
+                    bairro = model.bairro,
+                    celular = model.celular,
+                    cep = model.cep,
+                    cidade = model.cidade,
+                    cpf = model.cpf,
+                    dataNascimento = model.dataNascimento,
+                    email = model.email,
+                    endereco = model.endereco,
+                    estado = model.estado,
+                    login = model.email,
+                    nome = model.nome + " " + model.sobrenome,
+                    senha = Utils.SecurityUtil.CalculateMd5Hash(model.senha),
+                    sexo = model.sexo,
+                    telefoneFixo = model.telefoneFixo
+                };
+
+                try
+                {                    
+                    db.Aluno.Add(aluno);
+                    db.SaveChanges();
+
+                }
+                catch (Exception ex)
+                {
+                    TempData["message"] = ex.Message;
+                    return RedirectToAction("Cadastrar", new { id = id });
+                }
+
+                try
+                {
+                    User user = new User()
+                    {
+                        firstname = model.nome,
+                        lastname = model.sobrenome,
+                        email = model.email,
+                        password = model.senha,
+                        username = model.email,
+                        idnumber = aluno.alunoUID.ToString()
+                    };
+
+                    UserController userController = new UserController();
+                    userController.AddUserToMoodle(user, Url);
+                }
+                catch (Exception ex)
+                {
+                    db.Aluno.Remove(aluno);
+                    db.SaveChanges();
+
+                    TempData["message"] = ex.Message;
+                    return RedirectToAction("Cadastrar", new { id = id });
+                }
+                return RedirectToAction("Index", "Pagamento");
+            }
+            else
+            {
+                TempData["message"] = "Os dados preenchidos estão incorretos";
+                return RedirectToAction("Cadastrar", new { id = id });
+            }
+            
+        }
+
     }
 }

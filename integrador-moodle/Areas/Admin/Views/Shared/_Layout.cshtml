@@ -8,9 +8,15 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>@ViewBag.Title</title>
+    
+    @Styles.Render("~/Content/bootstrap/css/bootstrap.min.css")
+    @Styles.Render("~/Content/Site.css")
+    @Scripts.Render("~/Content/bootstrap/js/bootstrap.min.js")
 </head>
 <body>
-Layout
+<div>
+    <h1>Área Administrativa</h1>
+</div>
     <div>
         @RenderBody()
     </div>
