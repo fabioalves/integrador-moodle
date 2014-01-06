@@ -11,7 +11,6 @@ namespace integrador_moodle.Models
 {
     using System;
     using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
     
     public partial class Aluno
     {
@@ -21,49 +20,19 @@ using System.ComponentModel.DataAnnotations;
         }
     
         public int alunoUID { get; set; }
-
-        
-        [StringLength(100, ErrorMessage = "O tamanho máximo são 100 caracteres."), Required]
         public string nome { get; set; }
-
-        [StringLength(11, ErrorMessage = "O tamanho máximo são 11 caracteres."), Required]
         public string cpf { get; set; }
-
-        [Required]
-        [DataType(DataType.Date), DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         public System.DateTime dataNascimento { get; set; }
-
-        [Required]
         public int sexo { get; set; }
-
-        [Required]
         public string celular { get; set; }
-        
-        [Required]
         public string telefoneFixo { get; set; }
-        
-        [Required]
         public string endereco { get; set; }
-        
-        [Required]
         public string bairro { get; set; }
-
-        [Required]
         public string cidade { get; set; }
-
-        [Required]
         public string cep { get; set; }
-
-        [Required]
         public string estado { get; set; }
-
         public string login { get; set; }
-
-        [Required]
-        public string senha { get; set; }        
-        
-        [Required]
-        [DataType(DataType.EmailAddress)]
+        public string senha { get; set; }
         public string email { get; set; }
     
         public virtual ICollection<Matricula> Matricula { get; set; }

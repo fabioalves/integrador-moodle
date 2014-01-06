@@ -132,6 +132,7 @@
     <Property Type="String" Name="descricaoFormaPagamento" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
     <Property Type="Int32" Name="idmoodle" Nullable="false" />
     <NavigationProperty Name="Matricula" Relationship="integradorModel.FK_Matricula_Curso" FromRole="Curso" ToRole="Matricula" />
+    <Property Type="Decimal" Name="valor" Nullable="false" Precision="10" Scale="2" />
   </EntityType>
   <Association Name="FK_Matricula_Curso">
     <End Type="integradorModel.Curso" Role="Curso" Multiplicity="1" />

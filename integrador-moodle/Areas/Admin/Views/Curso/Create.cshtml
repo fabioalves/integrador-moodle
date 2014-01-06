@@ -78,6 +78,14 @@
             @Html.ValidationMessageFor(model => model.descricaoFormaPagamento)
         </div>
 
+        <div class="editor">
+            <label>
+            Valor
+            </label>
+            @Html.TextBoxFor(model => model.valor)
+            @Html.ValidationMessageFor(model => model.valor)
+        </div>
+
         <p>
             <input type="submit" id="button" value="Cadastrar" class="btn" />
         </p>

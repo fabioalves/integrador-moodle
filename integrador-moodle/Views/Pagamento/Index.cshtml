@@ -3,6 +3,44 @@
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    integrador_moodle.Models.Curso curso = ViewBag.curso;
+    List<integrador_moodle.Models.FormaPagamento> formasPagamento = ViewBag.formasPagamento;
 }
 
-<h2>Index</h2>
+<h2>Pagamento</h2>
+
+<fieldset>
+    <legend>Pagamento</legend>
+
+    <table class="table">
+        <thead>
+            <th>Curso</th>
+            <th>Valor</th>
+        </thead>
+        <tbody>
+            <td>@curso.fullname</td>
+            <td>@curso.valor</td>
+        </tbody>
+    </table>
+    
+
+    
+    @using (Html.BeginForm("Pagar", "Pagamento", new { id = curso.cursoUID }, FormMethod.Post, new { @class = "form-horizontal" }))
+    {
+        <h2>Escolha a forma de pagamento</h2>
+        
+        foreach (var forma in formasPagamento)
+        {
+            <label class="radio">
+            @Html.RadioButton("formapagamento", forma.formaPagamentoUID)
+            @forma.descricao
+            </label>
+        }
+        
+        <input type="submit" class="btn" value="Comprar" />
+        
+        
+    }
+    
+
+</fieldset>

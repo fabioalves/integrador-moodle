@@ -78,6 +78,7 @@
           <Property Name="topicos" Type="varchar" Nullable="false" MaxLength="250" />
           <Property Name="descricaoFormaPagamento" Type="varchar" Nullable="false" MaxLength="250" />
           <Property Name="idmoodle" Type="int" Nullable="false" />
+          <Property Name="valor" Type="decimal" Nullable="false" Precision="10" Scale="2" />
         </EntityType>
         <EntityType Name="FormaPagamento">
           <Key>
@@ -317,6 +318,7 @@
           <Property Type="String" Name="descricaoFormaPagamento" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
           <Property Type="Int32" Name="idmoodle" Nullable="false" />
           <NavigationProperty Name="Matricula" Relationship="integradorModel.FK_Matricula_Curso" FromRole="Curso" ToRole="Matricula" />
+          <Property Type="Decimal" Name="valor" Nullable="false" Precision="10" Scale="2" />
         </EntityType>
         <Association Name="FK_Matricula_Curso">
           <End Type="integradorModel.Curso" Role="Curso" Multiplicity="1" />
@@ -408,6 +410,7 @@
           <EntitySetMapping Name="Curso">
             <EntityTypeMapping TypeName="integradorModel.Curso">
               <MappingFragment StoreEntitySet="Curso">
+                <ScalarProperty Name="valor" ColumnName="valor" />
                 <ScalarProperty Name="idmoodle" ColumnName="idmoodle" />
                 <ScalarProperty Name="descricaoFormaPagamento" ColumnName="descricaoFormaPagamento" />
                 <ScalarProperty Name="topicos" ColumnName="topicos" />

@@ -29,6 +29,7 @@ namespace integrador_moodle.Models
         public string topicos { get; set; }
         public string descricaoFormaPagamento { get; set; }
         public int idmoodle { get; set; }
+        public decimal valor { get; set; }
     
         public virtual ICollection<Matricula> Matricula { get; set; }
     }

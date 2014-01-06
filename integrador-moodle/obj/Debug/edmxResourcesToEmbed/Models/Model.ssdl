@@ -73,6 +73,7 @@
     <Property Name="topicos" Type="varchar" Nullable="false" MaxLength="250" />
     <Property Name="descricaoFormaPagamento" Type="varchar" Nullable="false" MaxLength="250" />
     <Property Name="idmoodle" Type="int" Nullable="false" />
+    <Property Name="valor" Type="decimal" Nullable="false" Precision="10" Scale="2" />
   </EntityType>
   <EntityType Name="FormaPagamento">
     <Key>

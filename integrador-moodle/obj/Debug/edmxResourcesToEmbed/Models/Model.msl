@@ -52,6 +52,7 @@
     <EntitySetMapping Name="Curso">
       <EntityTypeMapping TypeName="integradorModel.Curso">
         <MappingFragment StoreEntitySet="Curso">
+          <ScalarProperty Name="valor" ColumnName="valor" />
           <ScalarProperty Name="idmoodle" ColumnName="idmoodle" />
           <ScalarProperty Name="descricaoFormaPagamento" ColumnName="descricaoFormaPagamento" />
           <ScalarProperty Name="topicos" ColumnName="topicos" />

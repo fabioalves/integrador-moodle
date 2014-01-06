@@ -24,12 +24,19 @@ namespace integrador_moodle.Controllers
         [HttpPost]
         public ActionResult Login(integrador_moodle.Areas.Admin.Models.LoginModel model, int id)
         {
+            string senha = integrador_moodle.Utils.SecurityUtil.CalculateMd5Hash(model.Password);
             integradorEntities db = new integradorEntities();
-            var aluno = db.Aluno.Where(a => a.email.Equals(model.Username) && a.senha.Equals(model.Password))
+            var aluno = db.Aluno.Where(a => 
+                            a.email.Equals(model.Username) && 
+                            a.senha.Equals(
+                                senha
+                                ))
                         .SingleOrDefault();
 
             if (aluno != null)
             {
+                Session["aluno"] = aluno;
+
                 return RedirectToAction("Index", "Pagamento", new { id = id });
             }
             else
@@ -121,7 +128,9 @@ namespace integrador_moodle.Controllers
                     TempData["message"] = ex.Message;
                     return RedirectToAction("Cadastrar", new { id = id });
                 }
-                return RedirectToAction("Index", "Pagamento");
+
+                Session["aluno"] = aluno;
+                return RedirectToAction("Index", "Pagamento", new { id = id });
             }
             else
             {
@@ -129,6 +138,12 @@ namespace integrador_moodle.Controllers
                 return RedirectToAction("Cadastrar", new { id = id });
             }
             
+        }
+
+        public ActionResult Logout()
+        {
+            Session.Abandon();
+            return RedirectToAction("Index", "Home");
         }
 
     }

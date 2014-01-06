@@ -21,6 +21,7 @@ namespace integrador_moodle
             WebApiConfig.Register(GlobalConfiguration.Configuration);
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
+            ControllerBuilder.Current.DefaultNamespaces.Add("integrador_moodle.Controllers");
             BundleConfig.RegisterBundles(BundleTable.Bundles);
         }
     }
