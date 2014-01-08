@@ -13,7 +13,7 @@ namespace integrador_moodle.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class integradorEntities : DbContext
+    public partial class integradorEntities : DbContext, ContextI
     {
         public integradorEntities()
             : base("name=integradorEntities")
@@ -33,5 +33,6 @@ namespace integrador_moodle.Models
         public DbSet<Curso> Curso { get; set; }
         public DbSet<Aluno> Aluno { get; set; }
         public DbSet<UF> UF { get; set; }
+
     }
 }

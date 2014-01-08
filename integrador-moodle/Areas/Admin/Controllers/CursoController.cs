@@ -34,8 +34,9 @@ namespace integrador_moodle.Areas.Admin.Controllers
             {
                 try
                 {
-                    this.CreateCourseMoodle(model.fullname, model.nomeBreve);
-                    
+                    Course course = this.CreateCourseMoodle(model.fullname, model.nomeBreve);
+                    model.idmoodle = course.id;
+
                     this.db.Curso.Add(model);
                     this.db.SaveChanges();
                     return RedirectToAction("Index");

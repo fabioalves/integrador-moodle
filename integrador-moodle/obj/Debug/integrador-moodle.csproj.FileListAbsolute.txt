@@ -32,3 +32,13 @@ C:\Users\FABIO\projetos\integrador-moodle\integrador-moodle\bin\System.Web.WebPa
 C:\Users\FABIO\projetos\integrador-moodle\integrador-moodle\obj\Debug\ResolveAssemblyReference.cache
 C:\Users\FABIO\projetos\integrador-moodle\integrador-moodle\obj\Debug\integrador-moodle.dll
 C:\Users\FABIO\projetos\integrador-moodle\integrador-moodle\obj\Debug\integrador-moodle.pdb
+C:\Users\FABIO\projetos\integrador-moodle\integrador-moodle\bin\Ninject.dll
+C:\Users\FABIO\projetos\integrador-moodle\integrador-moodle\bin\Ninject.Web.Common.dll
+C:\Users\FABIO\projetos\integrador-moodle\integrador-moodle\bin\Ninject.Web.Mvc.dll
+C:\Users\FABIO\projetos\integrador-moodle\integrador-moodle\bin\WebActivator.dll
+C:\Users\FABIO\projetos\integrador-moodle\integrador-moodle\bin\Ninject.pdb
+C:\Users\FABIO\projetos\integrador-moodle\integrador-moodle\bin\Ninject.xml
+C:\Users\FABIO\projetos\integrador-moodle\integrador-moodle\bin\Ninject.Web.Common.pdb
+C:\Users\FABIO\projetos\integrador-moodle\integrador-moodle\bin\Ninject.Web.Common.xml
+C:\Users\FABIO\projetos\integrador-moodle\integrador-moodle\bin\Ninject.Web.Mvc.pdb
+C:\Users\FABIO\projetos\integrador-moodle\integrador-moodle\bin\Ninject.Web.Mvc.xml

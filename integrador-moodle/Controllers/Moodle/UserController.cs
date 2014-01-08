@@ -10,9 +10,9 @@ using System.Web.Script.Serialization;
 
 namespace integrador_moodle.Controllers.Moodle
 {
-    public class UserController : Controller
+    public class UserController
     {
-        public User AddUserToMoodle(User user, UrlHelper helper)
+        internal User AddUserToMoodle(User user, UrlHelper helper)
         {
             try
             {
@@ -49,5 +49,30 @@ namespace integrador_moodle.Controllers.Moodle
                 throw new Exception(ex.Message);
             }
         }
-    }
+
+        internal User GetUserFromMoodle(string field, string value)
+        {
+            string userParams = "field="+field+"&values[0]=" + value;
+
+            string token = WebConfigurationManager.AppSettings["moodletoken"].ToString();
+            string serviceurl = WebConfigurationManager.AppSettings["moodleserviceurl"].ToString();
+
+            var client = new RestClient();
+            string userFunction = "core_user_get_users_by_field";
+
+            client.EndPoint = @"http://" + serviceurl + "?wstoken=" +
+                                token + "&wsfunction=" +
+                                userFunction + "&moodlewsrestformat=json&" +
+                                userParams;
+            var json = client.MakeRequest();
+
+            var serializer = new JavaScriptSerializer();
+
+            User userMoodle = serializer.Deserialize<List<User>>(json).FirstOrDefault();
+
+            return userMoodle;
+        }
+
+        
+    }   
 }

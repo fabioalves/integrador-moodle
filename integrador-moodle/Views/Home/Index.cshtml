@@ -10,6 +10,7 @@
 {
     <table class="table table-striped">
         <thead>
+            <tr>
             <th>
                 Nome do Curso
             </th>
@@ -19,10 +20,12 @@
             <th>
                 Opções
             </th>
+            </tr>
         </thead>
         <tbody>
     @foreach (var curso in Model)
     {
+            <tr>
             <td>
                 @curso.fullname
             </td>
@@ -32,6 +35,7 @@
             <td>
                 @Html.ActionLink("Inscreva-se", "PossuiCadastro", "Inscricao", new { id = curso.cursoUID }, null)                
             </td>
+            </tr>
     }
         </tbody>
     </table>

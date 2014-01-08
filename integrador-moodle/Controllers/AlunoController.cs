@@ -12,6 +12,13 @@ namespace integrador_moodle.Controllers
 {
     public class AlunoController : Controller
     {
+        private ContextI _dbcontext;
+        public AlunoController(ContextI dbcontext)
+        {
+            _dbcontext = dbcontext;
+        }
+
+
         //
         // GET: /Aluno/
         [HttpGet]
@@ -25,8 +32,8 @@ namespace integrador_moodle.Controllers
         public ActionResult Login(integrador_moodle.Areas.Admin.Models.LoginModel model, int id)
         {
             string senha = integrador_moodle.Utils.SecurityUtil.CalculateMd5Hash(model.Password);
-            integradorEntities db = new integradorEntities();
-            var aluno = db.Aluno.Where(a => 
+            
+            var aluno = _dbcontext.Set<Aluno>().Where(a => 
                             a.email.Equals(model.Username) && 
                             a.senha.Equals(
                                 senha
@@ -48,11 +55,10 @@ namespace integrador_moodle.Controllers
         public ActionResult Cadastrar(int id)
         {
             ViewBag.id = id;
-            integradorEntities db = new integradorEntities();
             
             var estados = new List<SelectListItem>();
 
-            foreach (var uf in db.UF.ToList())
+            foreach (var uf in _dbcontext.Set<UF>().ToList())
             {
                 estados.Add(new SelectListItem()
                 {
@@ -74,7 +80,6 @@ namespace integrador_moodle.Controllers
         {
             if (ModelState.IsValid)
             {
-                integradorEntities db = new integradorEntities();
                 Aluno aluno = new Aluno()
                 {
                     bairro = model.bairro,
@@ -94,9 +99,9 @@ namespace integrador_moodle.Controllers
                 };
 
                 try
-                {                    
-                    db.Aluno.Add(aluno);
-                    db.SaveChanges();
+                {
+                    _dbcontext.Set<Aluno>().Add(aluno);
+                    _dbcontext.SaveChanges();
 
                 }
                 catch (Exception ex)
@@ -122,8 +127,8 @@ namespace integrador_moodle.Controllers
                 }
                 catch (Exception ex)
                 {
-                    db.Aluno.Remove(aluno);
-                    db.SaveChanges();
+                    _dbcontext.Set<Aluno>().Remove(aluno);
+                    _dbcontext.SaveChanges();
 
                     TempData["message"] = ex.Message;
                     return RedirectToAction("Cadastrar", new { id = id });

@@ -9,14 +9,19 @@ namespace integrador_moodle.Controllers
 {
     public class PagamentoController : Controller
     {
-        integradorEntities db = new integradorEntities();
+        private ContextI _dbcontext;
+        public PagamentoController(ContextI dbcontext)
+        {
+            _dbcontext = dbcontext;
+        }
+
         //
         // GET: /Pagamento/
 
         public ActionResult Index(int id)
         {
-            ViewBag.curso = db.Curso.Find(id);
-            ViewBag.formasPagamento = db.FormaPagamento.ToList();
+            ViewBag.curso = _dbcontext.Set<Curso>().Find(id);
+            ViewBag.formasPagamento = _dbcontext.Set<FormaPagamento>().ToList();
             return View(new Pagamento());
         }
 

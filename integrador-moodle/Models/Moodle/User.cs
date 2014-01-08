@@ -7,6 +7,7 @@ namespace integrador_moodle.Models.Moodle
 {
     public class User
     {
+        public int id;
         public string username; //Username policy is defined in Moodle security config.
         public string password; //Plain text password consisting of any characters
         public string firstname; //The first name(s) of the user
