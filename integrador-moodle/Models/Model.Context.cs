@@ -33,6 +33,5 @@ namespace integrador_moodle.Models
         public DbSet<Curso> Curso { get; set; }
         public DbSet<Aluno> Aluno { get; set; }
         public DbSet<UF> UF { get; set; }
-
     }
 }

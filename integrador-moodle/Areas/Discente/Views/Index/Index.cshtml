@@ -1,0 +1,15 @@
+﻿@{
+    ViewBag.Title = "Área do Aluno";
+    Layout = "~/Areas/Discente/Views/Shared/_Layout.cshtml";
+}
+
+
+      <!--conteúdo do corpo-->
+      @if (!String.IsNullOrEmpty(ViewBag.mensagem))
+      {
+          <div class="alert alert-success">
+          <button type="button" class="close" data-dismiss="alert">×</button>
+            @ViewBag.mensagem
+          </div>
+      }
+  

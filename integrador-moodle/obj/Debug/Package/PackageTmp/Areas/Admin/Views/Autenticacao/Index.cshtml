@@ -1,0 +1,32 @@
+﻿@model integrador_moodle.Areas.Admin.Models.LoginModel
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Login</title>
+</head>
+<body>
+    <div>
+        @using (Html.BeginForm("Login", "Autenticacao", FormMethod.Post))
+        {
+            <p>
+            Login: 
+            @Html.TextBoxFor(m => Model.Username)            
+            </p>
+            <p>
+            Senha:
+            @Html.PasswordFor(m => Model.Password)
+            </p>
+            <p>
+                <input type="submit" value="Acessar" />
+            </p>
+        }
+    </div>
+</body>
+</html>

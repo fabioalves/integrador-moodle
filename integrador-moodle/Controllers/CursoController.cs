@@ -53,7 +53,8 @@ namespace integrador_moodle.Controllers
             _dbcontext.Set<Matricula>().Add(matricula);
             _dbcontext.SaveChanges();
 
-            return View(_dbcontext.Set<Curso>().Find(id));
+            TempData["mensagem"] = "Matrícula realizada com sucesso";
+            return RedirectToAction("Index", "Index", new { area = "Discente" }); //View(_dbcontext.Set<Curso>().Find(id));
         }
 
     }

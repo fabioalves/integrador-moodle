@@ -39,17 +39,33 @@ namespace integrador_moodle.Controllers
                                 senha
                                 ))
                         .SingleOrDefault();
+                        
 
-            if (aluno != null)
-            {
-                Session["aluno"] = aluno;
+                if (aluno != null)
+                {
+                    Session["aluno"] = aluno;
+                    integrador_moodle.Areas.Admin.Utility.SimpleSessionPersister.Username = aluno.login;
+                    integrador_moodle.Areas.Admin.Utility.SimpleSessionPersister.Id = aluno.alunoUID.ToString();
 
-                return RedirectToAction("Index", "Pagamento", new { id = id });
-            }
-            else
-            {
-                return RedirectToAction("Login", new { id = id });
-            }            
+                    if (!new InscricaoController(this._dbcontext).IsInscrito(aluno.alunoUID, id))
+                    {
+                        return RedirectToAction("Index", "Pagamento", new { id = id });
+                    }
+                    else
+                    {
+                        TempData["mensagem"] = "Você já está inscrito nesse curso";
+                        return RedirectToAction("Index", "Index", new { area = "Discente" });
+                    }
+
+                }
+                else
+                {
+                    integrador_moodle.Areas.Admin.Utility.SimpleSessionPersister.Username = null;
+                    integrador_moodle.Areas.Admin.Utility.SimpleSessionPersister.Id = null;
+
+                    return RedirectToAction("Login", new { id = id });
+                }
+            
         }
 
         public ActionResult Cadastrar(int id)
@@ -150,6 +166,5 @@ namespace integrador_moodle.Controllers
             Session.Abandon();
             return RedirectToAction("Index", "Home");
         }
-
     }
 }

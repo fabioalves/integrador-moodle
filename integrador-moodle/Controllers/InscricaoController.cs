@@ -29,5 +29,17 @@ namespace integrador_moodle.Controllers
             return View();
         }
 
+        public bool IsInscrito(int alunoUID, int cursoUID)
+        {
+            var matricula = _dbcontext.Set<Matricula>()
+                                .Where(m => m.alunoUID == alunoUID)
+                                .Where(m => m.cursoUID == cursoUID)
+                                .FirstOrDefault();
+            if(matricula != null)
+                return true;
+            else
+                return false;
+        }
+
     }
 }

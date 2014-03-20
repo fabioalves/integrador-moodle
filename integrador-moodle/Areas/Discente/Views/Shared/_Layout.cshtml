@@ -1,0 +1,60 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    @Styles.Render("~/Content/feics/estilo.css")
+    @Styles.Render("~/Content/bootstrap/css/bootstrap.min.css")    
+    @Scripts.Render("~/Content/bootstrap/js/bootstrap.min.js")
+    
+</head>
+<body>
+<div class="content">
+<div class="container-fluid">
+
+       
+<header class="clearfix">
+  <div id="busca" class="clearfix">
+            <div class="region region-search">
+    <div id="block-search-form" class="block block-search first last odd" role="search">
+
+    
+  <div class="content">
+  	<form action="/feics/?q=node/3" method="post" id="search-block-form" accept-charset="UTF-8">
+        <div class="container-inline">
+        </div>
+    </div>
+</form>  </div>
+</div>  </div>
+        <a href="/feics" class="logo_feics">Home</a>    
+  
+  <div class="row-fluid">
+    <div class="span2">
+    <br /><br /> <br />
+        <ul>
+            <li>@Html.ActionLink("Minhas Matrículas", "Matriculas", "Curso")</li>
+            <li>@Html.ActionLink("Sair do Sistema", "Logout", "Autenticacao", new { area = "Discente" }, null)</li>
+        </ul>
+      <!--conteúdo da lateral-->
+    </div>
+    <div class="span10">
+    <div class="content">
+    <br /><br />
+    @RenderBody()
+    </div>
+      </div>
+  </div>
+  </div>
+  
+   
+    @RenderSection("scripts", required: false)
+    @Scripts.Render("http://code.jquery.com/jquery-1.10.2.min.js")
+
+</body>
+</html>

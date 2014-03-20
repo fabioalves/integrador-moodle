@@ -95,6 +95,7 @@
           <Property Name="alunoUID" Type="int" Nullable="false" />
           <Property Name="cursoUID" Type="int" Nullable="false" />
           <Property Name="status" Type="int" Nullable="false" />
+          <Property Name="dataInscricao" Type="date" Nullable="false" />
         </EntityType>
         <EntityType Name="Pagamento">
           <Key>
@@ -246,6 +247,7 @@
           <NavigationProperty Name="Pagamento" Relationship="integradorModel.FK_Pagamento_Matricula" FromRole="Matricula" ToRole="Pagamento" />
           <NavigationProperty Name="Curso" Relationship="integradorModel.FK_Matricula_Curso" FromRole="Matricula" ToRole="Curso" />
           <NavigationProperty Name="Aluno" Relationship="integradorModel.FK_Matricula_Aluno" FromRole="Matricula" ToRole="Aluno" />
+          <Property Type="DateTime" Name="dataInscricao" Nullable="false" />
         </EntityType>
         <EntityType Name="Pagamento">
           <Key>
@@ -390,7 +392,8 @@
             <ScalarProperty Name="descricao" ColumnName="descricao" />
           </MappingFragment></EntityTypeMapping></EntitySetMapping>
           <EntitySetMapping Name="Matricula"><EntityTypeMapping TypeName="integradorModel.Matricula"><MappingFragment StoreEntitySet="Matricula">
-            <ScalarProperty Name="matriculaUID" ColumnName="matriculaUID" />
+            <ScalarProperty Name="dataInscricao" ColumnName="dataInscricao" />
+                <ScalarProperty Name="matriculaUID" ColumnName="matriculaUID" />
             <ScalarProperty Name="alunoUID" ColumnName="alunoUID" />
             <ScalarProperty Name="cursoUID" ColumnName="cursoUID" />
             <ScalarProperty Name="status" ColumnName="status" />

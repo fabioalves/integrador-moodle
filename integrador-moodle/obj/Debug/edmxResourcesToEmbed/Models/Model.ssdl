@@ -90,6 +90,7 @@
     <Property Name="alunoUID" Type="int" Nullable="false" />
     <Property Name="cursoUID" Type="int" Nullable="false" />
     <Property Name="status" Type="int" Nullable="false" />
+    <Property Name="dataInscricao" Type="date" Nullable="false" />
   </EntityType>
   <EntityType Name="Pagamento">
     <Key>

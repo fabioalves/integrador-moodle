@@ -24,6 +24,7 @@ namespace integrador_moodle.Models
         public int alunoUID { get; set; }
         public int cursoUID { get; set; }
         public int status { get; set; }
+        public System.DateTime dataInscricao { get; set; }
     
         public virtual ICollection<Certificado> Certificado { get; set; }
         public virtual ICollection<Pagamento> Pagamento { get; set; }

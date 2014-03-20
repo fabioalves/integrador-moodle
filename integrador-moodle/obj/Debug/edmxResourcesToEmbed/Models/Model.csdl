@@ -60,6 +60,7 @@
     <NavigationProperty Name="Pagamento" Relationship="integradorModel.FK_Pagamento_Matricula" FromRole="Matricula" ToRole="Pagamento" />
     <NavigationProperty Name="Curso" Relationship="integradorModel.FK_Matricula_Curso" FromRole="Matricula" ToRole="Curso" />
     <NavigationProperty Name="Aluno" Relationship="integradorModel.FK_Matricula_Aluno" FromRole="Matricula" ToRole="Aluno" />
+    <Property Type="DateTime" Name="dataInscricao" Nullable="false" />
   </EntityType>
   <EntityType Name="Pagamento">
     <Key>

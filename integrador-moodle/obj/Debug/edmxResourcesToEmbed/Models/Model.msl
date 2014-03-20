@@ -22,6 +22,7 @@
     <EntitySetMapping Name="Matricula">
       <EntityTypeMapping TypeName="integradorModel.Matricula">
         <MappingFragment StoreEntitySet="Matricula">
+          <ScalarProperty Name="dataInscricao" ColumnName="dataInscricao" />
           <ScalarProperty Name="matriculaUID" ColumnName="matriculaUID" />
           <ScalarProperty Name="alunoUID" ColumnName="alunoUID" />
           <ScalarProperty Name="cursoUID" ColumnName="cursoUID" />

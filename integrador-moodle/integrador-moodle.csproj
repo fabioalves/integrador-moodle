@@ -148,6 +148,11 @@
     <Compile Include="Areas\Admin\Utility\CustomPrincipal.cs" />
     <Compile Include="Areas\Admin\Utility\SecurityUtil.cs" />
     <Compile Include="Areas\Admin\Utility\SimpleSessionPersister.cs" />
+    <Compile Include="Areas\Discente\Controllers\AutenticacaoController.cs" />
+    <Compile Include="Areas\Discente\Controllers\BaseController.cs" />
+    <Compile Include="Areas\Discente\Controllers\CursoController.cs" />
+    <Compile Include="Areas\Discente\Controllers\IndexController.cs" />
+    <Compile Include="Areas\Discente\DiscenteAreaRegistration.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AlunoController.cs" />
     <Compile Include="Controllers\CursoController.cs" />
@@ -222,6 +227,55 @@
     <Content Include="Content\bootstrap\js\bootstrap-datepicker.js" />
     <Content Include="Content\bootstrap\js\bootstrap.js" />
     <Content Include="Content\bootstrap\js\bootstrap.min.js" />
+    <Content Include="Content\feics\bjqs.css" />
+    <Content Include="Content\feics\components\misc-rtl.css" />
+    <Content Include="Content\feics\components\misc.css" />
+    <Content Include="Content\feics\estilo.css" />
+    <Content Include="Content\feics\imagens\bg_banner.png" />
+    <Content Include="Content\feics\imagens\bg_banner_wrapper.png" />
+    <Content Include="Content\feics\imagens\bg_botao_busca.png" />
+    <Content Include="Content\feics\imagens\bg_busca.png" />
+    <Content Include="Content\feics\imagens\bg_caixa_busca.png" />
+    <Content Include="Content\feics\imagens\bg_contato_social.png" />
+    <Content Include="Content\feics\imagens\bg_cursos.png" />
+    <Content Include="Content\feics\imagens\bg_destaques.png" />
+    <Content Include="Content\feics\imagens\bg_destaques_menores.png" />
+    <Content Include="Content\feics\imagens\bg_facebook_provisorio.png" />
+    <Content Include="Content\feics\imagens\bg_footer.png" />
+    <Content Include="Content\feics\imagens\bg_footer_provisorio.png" />
+    <Content Include="Content\feics\imagens\bg_header.png" />
+    <Content Include="Content\feics\imagens\bg_item_menu.png" />
+    <Content Include="Content\feics\imagens\bg_lateral_temporario.png" />
+    <Content Include="Content\feics\imagens\bg_menu_banner.png" />
+    <Content Include="Content\feics\imagens\bg_telefones_provisorio.png" />
+    <Content Include="Content\feics\imagens\bg_titulo_pagina.png" />
+    <Content Include="Content\feics\imagens\bg_top_wrapper.png" />
+    <Content Include="Content\feics\imagens\help.png" />
+    <Content Include="Content\feics\imagens\logo_feics.png" />
+    <Content Include="Content\feics\imagens\logo_feics_footer.png" />
+    <Content Include="Content\feics\imagens\mapa.png" />
+    <Content Include="Content\feics\imagens\menu-collapsed-rtl.png" />
+    <Content Include="Content\feics\imagens\menu-collapsed.png" />
+    <Content Include="Content\feics\imagens\menu-expanded.png" />
+    <Content Include="Content\feics\imagens\menu-leaf.png" />
+    <Content Include="Content\feics\imagens\message-24-error.png" />
+    <Content Include="Content\feics\imagens\message-24-ok.png" />
+    <Content Include="Content\feics\imagens\message-24-warning.png" />
+    <Content Include="Content\feics\imagens\normalize.css" />
+    <Content Include="Content\feics\imagens\progress.gif" />
+    <Content Include="Content\feics\imagens\thumbnail_noticias.png" />
+    <Content Include="Content\feics\layouts\fixed-rtl.css" />
+    <Content Include="Content\feics\layouts\fixed.css" />
+    <Content Include="Content\feics\layouts\responsive-rtl.css" />
+    <Content Include="Content\feics\layouts\responsive.css" />
+    <Content Include="Content\feics\normalize-rtl-zen.css" />
+    <Content Include="Content\feics\normalize-zen.css" />
+    <Content Include="Content\feics\normalize.css" />
+    <Content Include="Content\feics\print.css" />
+    <Content Include="Content\feics\README.txt" />
+    <Content Include="Content\feics\reset.css" />
+    <Content Include="Content\feics\styles-rtl.css" />
+    <Content Include="Content\feics\styles.css" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
@@ -308,6 +362,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Areas\Discente\Models\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -338,6 +393,11 @@
   <ItemGroup>
     <Content Include="Areas\Admin\Views\Curso\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Curso\Create.cshtml" />
+    <Content Include="Areas\Discente\Views\Web.config" />
+    <Content Include="Areas\Discente\Views\Index\Index.cshtml" />
+    <Content Include="Areas\Discente\Views\Curso\Matriculas.cshtml" />
+    <Content Include="Areas\Discente\Views\Autenticacao\Login.cshtml" />
+    <Content Include="Areas\Discente\Views\Shared\_Layout.cshtml" />
     <None Include="Models\Model.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>Model.Context.cs</LastGenOutput>
@@ -351,6 +411,7 @@
     <Content Include="Views\Pagamento\Index.cshtml" />
     <Content Include="Views\Aluno\Cadastrar.cshtml" />
     <Content Include="Views\Curso\Matricula.cshtml" />
+    <Content Include="Views\Account\Login.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

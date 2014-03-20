@@ -1,0 +1,33 @@
+﻿@model IEnumerable<integrador_moodle.Models.Matricula>
+
+@{
+    ViewBag.Title = "Minhas Matrículas";
+    Layout = "~/Areas/Discente/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Minhas Matrículas</h2>
+
+@if (Model.Count() > 0)
+{
+<table class="table">
+<tr>
+    <th>Nome do Curso</th>
+    <th>Data de Inscrição</th>
+    <th>Situação</th>
+</tr>
+@foreach (var mat in Model)
+{
+    <tr>
+        <td>@mat.Curso.fullname</td>
+        <td>@mat.dataInscricao</td>
+        <td>@mat.status</td>
+    </tr>
+}
+</table>
+}
+else
+{
+    <div>
+        Nenhuma matrícula realizada
+    </div>
+}

@@ -1,0 +1,13 @@
+﻿@{
+    ViewBag.Title = "Autenticação";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Autenticação</h2>
+<p>
+<a href="@Url.Action("Login", "Autenticacao", new { area = "Discente"})">Autenticação como Aluno</a>
+
+</p>
+<p>
+<a href="@Url.Action("Index", "Autenticacao", new { area = "Admin"})">Autenticação como Administrador</a>
+</p>

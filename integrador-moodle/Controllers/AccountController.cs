@@ -13,7 +13,8 @@ namespace integrador_moodle.Controllers
 
         public ActionResult Login()
         {
-            return RedirectToAction("Index", "Autenticacao", new { area = "Admin" });
+            return View();
+            //return RedirectToAction("Index", "Autenticacao", new { area = "Admin" });
         }
 
     }

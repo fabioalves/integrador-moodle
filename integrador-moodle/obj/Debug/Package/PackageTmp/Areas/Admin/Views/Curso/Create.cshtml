@@ -1,0 +1,95 @@
+﻿@model integrador_moodle.Models.Curso
+
+@{
+    ViewBag.Title = "Cadastrar Curso";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Cadastrar Novo</h2>
+
+@using (Html.BeginForm()) {
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>Curso</legend>
+
+        <div class="editor">
+            <label>
+            Nome Breve
+            </label>
+
+            @Html.EditorFor(model => model.nomeBreve)
+            @Html.ValidationMessageFor(model => model.nomeBreve)
+        </div>
+
+        <div class="editor">
+            <label>
+            Nome Completo
+            </label>
+            @Html.TextBoxFor(model => model.fullname, new { @class = "input-xlarge" })
+            @Html.ValidationMessageFor(model => model.fullname)
+        </div>
+
+        <div class="editor">
+            <label>
+            Descrição
+            </label>
+            @Html.TextAreaFor(model => model.descricao, new { @rows = 5, @class = "input-xxlarge" })
+            @Html.ValidationMessageFor(model => model.descricao)
+        </div>
+
+        <div class="editor">
+            <label>
+            Objetivos
+            </label>
+            @Html.TextAreaFor(model => model.objetivos, new { @rows = 5, @class = "input-xxlarge" })
+            @Html.ValidationMessageFor(model => model.objetivos)
+        </div>
+
+        <div class="editor">
+            <label>
+            Competências
+            </label>
+            @Html.TextAreaFor(model => model.competencias, new { @rows = 5, @class = "input-xxlarge" })
+            @Html.ValidationMessageFor(model => model.competencias)
+        </div>
+
+        <div class="editor">
+            <label>
+            Público Alvo
+            </label>
+            @Html.TextAreaFor(model => model.publicoalvo, new { @rows = 5, @class = "input-xxlarge" })
+            @Html.ValidationMessageFor(model => model.publicoalvo)
+        </div>
+
+        <div class="editor">
+            <label>
+            Tópicos
+            </label>
+            @Html.TextAreaFor(model => model.topicos, new { @rows = 5, @class = "input-xxlarge" })
+            @Html.ValidationMessageFor(model => model.topicos)
+        </div>
+
+        <div class="editor">
+            <label>
+            Forma de Pagamento
+            </label>
+            @Html.TextAreaFor(model => model.descricaoFormaPagamento, new { @rows = 5, @class = "input-xxlarge" })
+            @Html.ValidationMessageFor(model => model.descricaoFormaPagamento)
+        </div>
+
+        <div class="editor">
+            <label>
+            Valor
+            </label>
+            @Html.TextBoxFor(model => model.valor)
+            @Html.ValidationMessageFor(model => model.valor)
+        </div>
+
+        <p>
+            <input type="submit" id="button" value="Cadastrar" class="btn" />
+        </p>
+    </fieldset>
+}
+
+

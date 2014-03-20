@@ -1,0 +1,80 @@
+﻿@model IEnumerable<integrador_moodle.Models.Curso>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Cursos</h2>
+
+<p>
+    @Html.ActionLink("Cadastrar Novo", "Create")
+</p>
+<table class="table table-striped">
+    <tr>
+        <th>
+            Nome Breve
+        </th>
+        <th>
+            Nome Completo
+        </th>
+        <th>
+            Descrição
+        </th>
+        <th>
+            Objetivos
+        </th>
+        <th>
+            Competências
+        </th>
+        <th>
+            Público Alvo
+        </th>
+        <th>
+            Tópicos
+        </th>
+        <th>
+            Forma de Pagamento
+        </th>
+        <th></th>
+    </tr>
+@if (Model != null)
+{
+    foreach (var item in Model)
+    {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.nomeBreve)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.fullname)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.descricao)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.objetivos)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.competencias)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.publicoalvo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.topicos)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.descricaoFormaPagamento)
+        </td>
+        <td>
+            <i class="icon-remove"></i>
+            <i class="icon-edit"></i>
+           @* @Html.ActionLink("Editar", "Edit", new { id = item.cursoUID }) |
+            @Html.ActionLink("Excluir", "Delete", new { id = item.cursoUID })*@
+        </td>
+    </tr>
+    }
+}
+
+</table>
