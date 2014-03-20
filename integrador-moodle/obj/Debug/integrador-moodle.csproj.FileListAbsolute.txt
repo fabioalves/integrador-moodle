@@ -29,7 +29,6 @@ C:\Users\FABIO\projetos\integrador-moodle\integrador-moodle\bin\System.Web.Razor
 C:\Users\FABIO\projetos\integrador-moodle\integrador-moodle\bin\System.Web.WebPages.xml
 C:\Users\FABIO\projetos\integrador-moodle\integrador-moodle\bin\System.Web.WebPages.Deployment.xml
 C:\Users\FABIO\projetos\integrador-moodle\integrador-moodle\bin\System.Web.WebPages.Razor.xml
-C:\Users\FABIO\projetos\integrador-moodle\integrador-moodle\obj\Debug\ResolveAssemblyReference.cache
 C:\Users\FABIO\projetos\integrador-moodle\integrador-moodle\obj\Debug\integrador-moodle.dll
 C:\Users\FABIO\projetos\integrador-moodle\integrador-moodle\obj\Debug\integrador-moodle.pdb
 C:\Users\FABIO\projetos\integrador-moodle\integrador-moodle\bin\Ninject.dll
@@ -42,3 +41,4 @@ C:\Users\FABIO\projetos\integrador-moodle\integrador-moodle\bin\Ninject.Web.Comm
 C:\Users\FABIO\projetos\integrador-moodle\integrador-moodle\bin\Ninject.Web.Common.xml
 C:\Users\FABIO\projetos\integrador-moodle\integrador-moodle\bin\Ninject.Web.Mvc.pdb
 C:\Users\FABIO\projetos\integrador-moodle\integrador-moodle\bin\Ninject.Web.Mvc.xml
+C:\Users\FABIO\projetos\integrador-moodle\integrador-moodle\obj\Debug\integrador-moodle.csprojResolveAssemblyReference.cache
