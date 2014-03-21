@@ -5,6 +5,10 @@ using System.Web;
 using System.Web.Mvc;
 using integrador_moodle.Models;
 using System.Xml.Linq;
+using System.Net;
+using System.Text;
+using System.IO;
+using System.Xml;
 
 namespace integrador_moodle.Controllers
 {
@@ -29,6 +33,50 @@ namespace integrador_moodle.Controllers
         [HttpPost]
         public ActionResult Pagar(Pagamento model, int id)
         {
+            Stream requestStream = null;
+            WebResponse response = null;
+            StreamReader reader = null;
+
+            string url = "https://qasecommerce.cielo.com.br/servicos/ecommwsec.do";
+            WebRequest request = WebRequest.Create(url);
+            request.Method = WebRequestMethods.Http.Post;
+            request.ContentType = "application/x-www-form-urlencoded";
+            byte[] byteBuffer = null;
+            var stringXml = this.GetXmlTransacao(new Pagamento()
+                {
+                    formaPagamentoUID = 1,
+                    matriculaUID = 3,
+                    parcelas = 1,
+                    valor = 100                    
+                });
+
+            var postData = String.Format("mensagem={0}", stringXml);
+            byteBuffer = Encoding.UTF8.GetBytes(postData);
+            request.ContentLength = byteBuffer.Length;
+            requestStream = request.GetRequestStream();
+            requestStream.Write(byteBuffer, 0, byteBuffer.Length);
+            requestStream.Close();
+
+
+            response = request.GetResponse();
+            Stream responseStream = response.GetResponseStream();
+            System.Text.Encoding encoding = System.Text.Encoding.Default;
+            reader = new StreamReader(responseStream, encoding);
+            Char[] charBuffer = new Char[256];
+            int count = reader.Read(charBuffer, 0, charBuffer.Length);
+
+            StringBuilder Dados = new StringBuilder();
+            while (count > 0)
+            {
+                Dados.Append(new String(charBuffer, 0, count));
+                count = reader.Read(charBuffer, 0, charBuffer.Length);
+            }
+
+            XmlDocument xmlDoc = new XmlDocument();
+            xmlDoc.LoadXml(Dados.ToString());
+            XmlNodeList listaElementos = xmlDoc.DocumentElement.GetElementsByTagName("url-autenticacao");
+            XmlNodeList tid = xmlDoc.DocumentElement.GetElementsByTagName("tid");
+
             return RedirectToAction("Matricula", "Curso", new { id = id });
         }
 
@@ -38,7 +86,8 @@ namespace integrador_moodle.Controllers
                     new XDeclaration("1.0", "ISO-8859-1", string.Empty),
                     new XElement("requisicao-transacao", 
                         new XAttribute("id", pagamento.matriculaUID),
-                        new XElement("dados-ec", 
+                        new XAttribute("versao", "1.1.0"),
+                        new XElement("dados-ec",
                                 new XElement("numero", "1001734898"),
                                 new XElement("chave", "e84827130b9837473681c2787007da5914d6359947015a5cdb2b8843db0fa832")                                
                             ),
