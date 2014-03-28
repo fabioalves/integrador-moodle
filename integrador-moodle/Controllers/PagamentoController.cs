@@ -77,7 +77,7 @@ namespace integrador_moodle.Controllers
             XmlNodeList listaElementos = xmlDoc.DocumentElement.GetElementsByTagName("url-autenticacao");
             XmlNodeList tid = xmlDoc.DocumentElement.GetElementsByTagName("tid");
 
-            return RedirectToAction("Matricula", "Curso", new { id = id });
+            return Redirect(listaElementos.ToString());
         }
 
         private string GetXmlTransacao(Pagamento pagamento)
@@ -103,7 +103,7 @@ namespace integrador_moodle.Controllers
                                 new XElement("produto", "1"),
                                 new XElement("parcelas", pagamento.parcelas.ToString())
                             ),
-                        new XElement("url-retorno", "MODIFICAR"),
+                        new XElement("url-retorno", "http://localhost:64886"),
                         new XElement("autorizar", "2"),
                         new XElement("capturar", "true") 
                         )
