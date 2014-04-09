@@ -27,7 +27,16 @@ namespace integrador_moodle.Controllers
 
         public ActionResult Matricula(int id)
         {
-            Aluno aluno = (Aluno)Session["aluno"];
+            RealizarMatricula(id);           
+
+            TempData["mensagem"] = "Matrícula realizada com sucesso";
+            return RedirectToAction("Index", "Index", new { area = "Discente" }); //View(_dbcontext.Set<Curso>().Find(id));
+        }
+
+        internal Matricula RealizarMatricula(int id)
+        {
+            AlunoController alunocontroller = new AlunoController(_dbcontext);
+            Aluno aluno = alunocontroller.GetAluno(int.Parse(integrador_moodle.Areas.Admin.Utility.SimpleSessionPersister.Id));
 
             MoodleFacade moodle = new MoodleFacade();
             User user = moodle.GetUserFromMoodle(UserField.email, aluno.email);
@@ -42,7 +51,7 @@ namespace integrador_moodle.Controllers
                     userid = user.id
                 }
             );
-            
+
             Matricula matricula = new Matricula()
             {
                 alunoUID = aluno.alunoUID,
@@ -53,8 +62,7 @@ namespace integrador_moodle.Controllers
             _dbcontext.Set<Matricula>().Add(matricula);
             _dbcontext.SaveChanges();
 
-            TempData["mensagem"] = "Matrícula realizada com sucesso";
-            return RedirectToAction("Index", "Index", new { area = "Discente" }); //View(_dbcontext.Set<Curso>().Find(id));
+            return matricula;
         }
 
     }

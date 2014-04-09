@@ -9,6 +9,7 @@ using System.Net;
 using System.Text;
 using System.IO;
 using System.Xml;
+using System.Web.Configuration;
 
 namespace integrador_moodle.Controllers
 {
@@ -26,86 +27,84 @@ namespace integrador_moodle.Controllers
         public ActionResult Index(int id)
         {
             ViewBag.curso = _dbcontext.Set<Curso>().Find(id);
-            ViewBag.formasPagamento = _dbcontext.Set<FormaPagamento>().ToList();
+            ViewBag.bandeiras = _dbcontext.Set<BandeiraCartao>().ToList();
+
             return View(new Pagamento());
         }
 
         [HttpPost]
-        public ActionResult Pagar(Pagamento model, int id)
-        {
-            Stream requestStream = null;
-            WebResponse response = null;
-            StreamReader reader = null;
+        public ActionResult Pagar(Pagamento model, int id, int bandeira, int parcela)
+        {            
+            CursoController cursocontroller = new CursoController(this._dbcontext);
+            Matricula matricula = cursocontroller.RealizarMatricula(id);
 
             string url = "https://qasecommerce.cielo.com.br/servicos/ecommwsec.do";
-            WebRequest request = WebRequest.Create(url);
-            request.Method = WebRequestMethods.Http.Post;
-            request.ContentType = "application/x-www-form-urlencoded";
-            byte[] byteBuffer = null;
-            var stringXml = this.GetXmlTransacao(new Pagamento()
-                {
-                    formaPagamentoUID = 1,
-                    matriculaUID = 3,
-                    parcelas = 1,
-                    valor = 100                    
-                });
 
-            var postData = String.Format("mensagem={0}", stringXml);
-            byteBuffer = Encoding.UTF8.GetBytes(postData);
-            request.ContentLength = byteBuffer.Length;
-            requestStream = request.GetRequestStream();
-            requestStream.Write(byteBuffer, 0, byteBuffer.Length);
-            requestStream.Close();
+            ServiceController service = new ServiceController();
+            Curso curso = _dbcontext.Set<Curso>().Find(id);
 
+            model.formaPagamentoUID = 1;
+            model.parcelas = parcela;
+            model.matriculaUID = matricula.matriculaUID;
+            model.valor = curso.valor;            
+            model.bandeiraUID = bandeira;
 
-            response = request.GetResponse();
-            Stream responseStream = response.GetResponseStream();
-            System.Text.Encoding encoding = System.Text.Encoding.Default;
-            reader = new StreamReader(responseStream, encoding);
-            Char[] charBuffer = new Char[256];
-            int count = reader.Read(charBuffer, 0, charBuffer.Length);
+            var stringXml = this.GetXmlTransacao(model);
 
-            StringBuilder Dados = new StringBuilder();
-            while (count > 0)
-            {
-                Dados.Append(new String(charBuffer, 0, count));
-                count = reader.Read(charBuffer, 0, charBuffer.Length);
-            }
+            Stream responseStream = service.Post(url, stringXml);
 
-            XmlDocument xmlDoc = new XmlDocument();
-            xmlDoc.LoadXml(Dados.ToString());
-            XmlNodeList listaElementos = xmlDoc.DocumentElement.GetElementsByTagName("url-autenticacao");
+            XmlDocument xmlDoc = service.LoadToXml(responseStream, Encoding.Default);
+            XmlNodeList urlAutenticacao = xmlDoc.DocumentElement.GetElementsByTagName("url-autenticacao");
             XmlNodeList tid = xmlDoc.DocumentElement.GetElementsByTagName("tid");
 
-            return Redirect(listaElementos.ToString());
+            model.transacaoUID = tid[0].InnerText;
+            this.Create(model);
+
+            return Redirect(urlAutenticacao[0].InnerText);
+        }
+
+        private void Create(Pagamento model)
+        {
+            this._dbcontext.Set<Pagamento>().Add(model);
+            this._dbcontext.SaveChanges();
         }
 
         private string GetXmlTransacao(Pagamento pagamento)
         {
+            string produto = "1";
+            if (pagamento.parcelas > 1)
+                produto = "2";
+
+            string bandeira = "visa";
+            if(pagamento.bandeiraUID.Value == 2)
+                bandeira = "mastercard";
+
+            string absoluteUrl = WebConfigurationManager.AppSettings["absoluteurl"].ToString();
+
             XDocument doc = new XDocument(
                     new XDeclaration("1.0", "ISO-8859-1", string.Empty),
-                    new XElement("requisicao-transacao", 
+                    new XElement("requisicao-transacao",
                         new XAttribute("id", pagamento.matriculaUID),
                         new XAttribute("versao", "1.1.0"),
                         new XElement("dados-ec",
                                 new XElement("numero", "1001734898"),
-                                new XElement("chave", "e84827130b9837473681c2787007da5914d6359947015a5cdb2b8843db0fa832")                                
+                                new XElement("chave", "e84827130b9837473681c2787007da5914d6359947015a5cdb2b8843db0fa832")
                             ),
                         new XElement("dados-pedido",
                                 new XElement("numero", pagamento.matriculaUID.ToString()),
-                                new XElement("valor", pagamento.valor.ToString()),
+                                new XElement("valor", ((int)pagamento.valor * 100).ToString()),
                                 new XElement("moeda", "986"),
                                 new XElement("data-hora", DateTime.Now),
                                 new XElement("idioma", "PT")
                             ),
                         new XElement("forma-pagamento",
-                                new XElement("bandeira", "visa"),
-                                new XElement("produto", "1"),
+                                new XElement("bandeira", bandeira),
+                                new XElement("produto", produto),
                                 new XElement("parcelas", pagamento.parcelas.ToString())
                             ),
-                        new XElement("url-retorno", "http://localhost:64886"),
+                        new XElement("url-retorno", absoluteUrl + Url.Action("InscricaoRealizada", "Index", new { area = "Discente" })),
                         new XElement("autorizar", "2"),
-                        new XElement("capturar", "true") 
+                        new XElement("capturar", "true")
                         )
                 );
 

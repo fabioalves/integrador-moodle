@@ -163,10 +163,14 @@
     <Compile Include="Controllers\Moodle\CourseController.cs" />
     <Compile Include="Controllers\Moodle\UserController.cs" />
     <Compile Include="Controllers\PagamentoController.cs" />
+    <Compile Include="Controllers\ServiceController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Aluno.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\BandeiraCartao.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Certificado.cs">

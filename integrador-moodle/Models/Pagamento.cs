@@ -19,8 +19,12 @@ namespace integrador_moodle.Models
         public int formaPagamentoUID { get; set; }
         public decimal valor { get; set; }
         public int parcelas { get; set; }
+        public string transacaoUID { get; set; }
+        public Nullable<int> bandeiraUID { get; set; }
+        public Nullable<int> situacaoTransacao { get; set; }
     
         public virtual FormaPagamento FormaPagamento { get; set; }
         public virtual Matricula Matricula { get; set; }
+        public virtual BandeiraCartao BandeiraCartao { get; set; }
     }
 }

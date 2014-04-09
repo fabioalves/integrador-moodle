@@ -7,6 +7,7 @@
     <Schema Namespace="integradorModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
         <EntityContainer Name="integradorModelStoreContainer">
           <EntitySet Name="Aluno" EntityType="integradorModel.Store.Aluno" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="BandeiraCartao" EntityType="integradorModel.Store.BandeiraCartao" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Certificado" EntityType="integradorModel.Store.Certificado" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Curso" EntityType="integradorModel.Store.Curso" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="FormaPagamento" EntityType="integradorModel.Store.FormaPagamento" store:Type="Tables" Schema="dbo" />
@@ -14,6 +15,10 @@
           <EntitySet Name="Pagamento" EntityType="integradorModel.Store.Pagamento" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="UF" EntityType="integradorModel.Store.UF" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="UsuarioAdmin" EntityType="integradorModel.Store.UsuarioAdmin" store:Type="Tables" Schema="dbo" />
+          <AssociationSet Name="FK_BandeiraCartao_FormaPagamento" Association="integradorModel.Store.FK_BandeiraCartao_FormaPagamento">
+            <End Role="FormaPagamento" EntitySet="FormaPagamento" />
+            <End Role="BandeiraCartao" EntitySet="BandeiraCartao" />
+          </AssociationSet>
           <AssociationSet Name="FK_Certificado_Matricula" Association="integradorModel.Store.FK_Certificado_Matricula">
             <End Role="Matricula" EntitySet="Matricula" />
             <End Role="Certificado" EntitySet="Certificado" />
@@ -25,6 +30,10 @@
           <AssociationSet Name="FK_Matricula_Curso" Association="integradorModel.Store.FK_Matricula_Curso">
             <End Role="Curso" EntitySet="Curso" />
             <End Role="Matricula" EntitySet="Matricula" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Pagamento_BandeiraCartao" Association="integradorModel.Store.FK_Pagamento_BandeiraCartao">
+            <End Role="BandeiraCartao" EntitySet="BandeiraCartao" />
+            <End Role="Pagamento" EntitySet="Pagamento" />
           </AssociationSet>
           <AssociationSet Name="FK_Pagamento_FormaPagamento" Association="integradorModel.Store.FK_Pagamento_FormaPagamento">
             <End Role="FormaPagamento" EntitySet="FormaPagamento" />
@@ -54,6 +63,14 @@
           <Property Name="login" Type="varchar" Nullable="false" MaxLength="50" />
           <Property Name="senha" Type="varchar" Nullable="false" MaxLength="50" />
           <Property Name="email" Type="varchar" Nullable="false" MaxLength="250" />
+        </EntityType>
+        <EntityType Name="BandeiraCartao">
+          <Key>
+            <PropertyRef Name="bandeiraCartaoUID" />
+          </Key>
+          <Property Name="bandeiraCartaoUID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="nome" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="formaPagamentoUID" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Certificado">
           <Key>
@@ -106,6 +123,9 @@
           <Property Name="formaPagamentoUID" Type="int" Nullable="false" />
           <Property Name="valor" Type="decimal" Nullable="false" Scale="2" />
           <Property Name="parcelas" Type="int" Nullable="false" />
+          <Property Name="transacaoUID" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="bandeiraUID" Type="int" />
+          <Property Name="situacaoTransacao" Type="int" />
         </EntityType>
         <EntityType Name="UF">
           <Key>
@@ -123,6 +143,18 @@
           <Property Name="login" Type="varchar" Nullable="false" MaxLength="11" />
           <Property Name="senha" Type="varchar" Nullable="false" MaxLength="100" />
         </EntityType>
+        <Association Name="FK_BandeiraCartao_FormaPagamento">
+          <End Role="FormaPagamento" Type="integradorModel.Store.FormaPagamento" Multiplicity="1" />
+          <End Role="BandeiraCartao" Type="integradorModel.Store.BandeiraCartao" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FormaPagamento">
+              <PropertyRef Name="formaPagamentoUID" />
+            </Principal>
+            <Dependent Role="BandeiraCartao">
+              <PropertyRef Name="formaPagamentoUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Certificado_Matricula">
           <End Role="Matricula" Type="integradorModel.Store.Matricula" Multiplicity="1" />
           <End Role="Certificado" Type="integradorModel.Store.Certificado" Multiplicity="*" />
@@ -156,6 +188,18 @@
             </Principal>
             <Dependent Role="Matricula">
               <PropertyRef Name="cursoUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Pagamento_BandeiraCartao">
+          <End Role="BandeiraCartao" Type="integradorModel.Store.BandeiraCartao" Multiplicity="0..1" />
+          <End Role="Pagamento" Type="integradorModel.Store.Pagamento" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BandeiraCartao">
+              <PropertyRef Name="bandeiraCartaoUID" />
+            </Principal>
+            <Dependent Role="Pagamento">
+              <PropertyRef Name="bandeiraUID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -216,6 +260,15 @@
             <End Role="Matricula" EntitySet="Matricula" />
           </AssociationSet>
           <EntitySet Name="UF" EntityType="integradorModel.UF" />
+          <EntitySet Name="BandeiraCartao" EntityType="integradorModel.BandeiraCartao" />
+          <AssociationSet Name="FK_BandeiraCartao_FormaPagamento" Association="integradorModel.FK_BandeiraCartao_FormaPagamento">
+            <End Role="FormaPagamento" EntitySet="FormaPagamento" />
+            <End Role="BandeiraCartao" EntitySet="BandeiraCartao" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Pagamento_BandeiraCartao" Association="integradorModel.FK_Pagamento_BandeiraCartao">
+            <End Role="BandeiraCartao" EntitySet="BandeiraCartao" />
+            <End Role="Pagamento" EntitySet="Pagamento" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Certificado">
           <Key>
@@ -234,6 +287,7 @@
           <Property Name="formaPagamentoUID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="descricao" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
           <NavigationProperty Name="Pagamento" Relationship="integradorModel.FK_Pagamento_FormaPagamento" FromRole="FormaPagamento" ToRole="Pagamento" />
+          <NavigationProperty Name="BandeiraCartao" Relationship="integradorModel.FK_BandeiraCartao_FormaPagamento" FromRole="FormaPagamento" ToRole="BandeiraCartao" />
         </EntityType>
         <EntityType Name="Matricula">
           <Key>
@@ -260,6 +314,10 @@
           <Property Name="parcelas" Type="Int32" Nullable="false" />
           <NavigationProperty Name="FormaPagamento" Relationship="integradorModel.FK_Pagamento_FormaPagamento" FromRole="Pagamento" ToRole="FormaPagamento" />
           <NavigationProperty Name="Matricula" Relationship="integradorModel.FK_Pagamento_Matricula" FromRole="Pagamento" ToRole="Matricula" />
+          <Property Type="String" Name="transacaoUID" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="bandeiraUID" />
+          <NavigationProperty Name="BandeiraCartao" Relationship="integradorModel.FK_Pagamento_BandeiraCartao" FromRole="Pagamento" ToRole="BandeiraCartao" />
+          <Property Type="Int32" Name="situacaoTransacao" />
         </EntityType>
         <EntityType Name="UsuarioAdmin">
           <Key>
@@ -375,6 +433,40 @@
           <Property Type="String" Name="abr" Nullable="false" MaxLength="2" FixedLength="true" Unicode="true" />
           <Property Type="String" Name="estado" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
+        <EntityType Name="BandeiraCartao">
+          <Key>
+            <PropertyRef Name="bandeiraCartaoUID" />
+          </Key>
+          <Property Type="Int32" Name="bandeiraCartaoUID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="nome" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="formaPagamentoUID" Nullable="false" />
+          <NavigationProperty Name="FormaPagamento" Relationship="integradorModel.FK_BandeiraCartao_FormaPagamento" FromRole="BandeiraCartao" ToRole="FormaPagamento" />
+          <NavigationProperty Name="Pagamento" Relationship="integradorModel.FK_Pagamento_BandeiraCartao" FromRole="BandeiraCartao" ToRole="Pagamento" />
+        </EntityType>
+        <Association Name="FK_BandeiraCartao_FormaPagamento">
+          <End Type="integradorModel.FormaPagamento" Role="FormaPagamento" Multiplicity="1" />
+          <End Type="integradorModel.BandeiraCartao" Role="BandeiraCartao" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FormaPagamento">
+              <PropertyRef Name="formaPagamentoUID" />
+            </Principal>
+            <Dependent Role="BandeiraCartao">
+              <PropertyRef Name="formaPagamentoUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Pagamento_BandeiraCartao">
+          <End Type="integradorModel.BandeiraCartao" Role="BandeiraCartao" Multiplicity="0..1" />
+          <End Type="integradorModel.Pagamento" Role="Pagamento" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BandeiraCartao">
+              <PropertyRef Name="bandeiraCartaoUID" />
+            </Principal>
+            <Dependent Role="Pagamento">
+              <PropertyRef Name="bandeiraUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -399,7 +491,10 @@
             <ScalarProperty Name="status" ColumnName="status" />
           </MappingFragment></EntityTypeMapping></EntitySetMapping>
           <EntitySetMapping Name="Pagamento"><EntityTypeMapping TypeName="integradorModel.Pagamento"><MappingFragment StoreEntitySet="Pagamento">
-            <ScalarProperty Name="pagamentoUID" ColumnName="pagamentoUID" />
+            <ScalarProperty Name="situacaoTransacao" ColumnName="situacaoTransacao" />
+                <ScalarProperty Name="bandeiraUID" ColumnName="bandeiraUID" />
+                <ScalarProperty Name="transacaoUID" ColumnName="transacaoUID" />
+                <ScalarProperty Name="pagamentoUID" ColumnName="pagamentoUID" />
             <ScalarProperty Name="matriculaUID" ColumnName="matriculaUID" />
             <ScalarProperty Name="formaPagamentoUID" ColumnName="formaPagamentoUID" />
             <ScalarProperty Name="valor" ColumnName="valor" />
@@ -457,6 +552,15 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="BandeiraCartao">
+            <EntityTypeMapping TypeName="integradorModel.BandeiraCartao">
+              <MappingFragment StoreEntitySet="BandeiraCartao">
+                <ScalarProperty Name="formaPagamentoUID" ColumnName="formaPagamentoUID" />
+                <ScalarProperty Name="nome" ColumnName="nome" />
+                <ScalarProperty Name="bandeiraCartaoUID" ColumnName="bandeiraCartaoUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -482,26 +586,30 @@
         <EntityTypeShape EntityType="integradorModel.Certificado" Width="1.5" PointX="5.25" PointY="4" Height="1.9802864583333335" IsExpanded="true" />
         <EntityTypeShape EntityType="integradorModel.FormaPagamento" Width="1.5" PointX="3" PointY="1.25" Height="1.5956835937499996" IsExpanded="true" />
         <EntityTypeShape EntityType="integradorModel.Matricula" Width="1.5" PointX="3" PointY="3.625" Height="2.5571907552083339" IsExpanded="true" />
-        <EntityTypeShape EntityType="integradorModel.Pagamento" Width="1.5" PointX="5.25" PointY="0.75" Height="2.3648893229166674" IsExpanded="true" />
-        <EntityTypeShape EntityType="integradorModel.UsuarioAdmin" Width="1.5" PointX="6.25" PointY="6.875" Height="1.5956835937499987" IsExpanded="true" />
+        <EntityTypeShape EntityType="integradorModel.Pagamento" Width="1.5" PointX="5.25" PointY="0.5" Height="3.1340950520833331" IsExpanded="true" />
+        <EntityTypeShape EntityType="integradorModel.UsuarioAdmin" Width="1.5" PointX="6.25" PointY="6.25" Height="1.5956835937499987" IsExpanded="true" />
         <AssociationConnector Association="integradorModel.FK_Certificado_Matricula" ManuallyRouted="false">
-          <ConnectorPoint PointX="4.5" PointY="4.9901432291666667" />
-          <ConnectorPoint PointX="5.25" PointY="4.9901432291666667" />
+          <ConnectorPoint PointX="4.875" PointY="4.9901432291666667" />
+          <ConnectorPoint PointX="5.625" PointY="4.9901432291666667" />
         </AssociationConnector>
         <AssociationConnector Association="integradorModel.FK_Pagamento_FormaPagamento" ManuallyRouted="false">
-          <ConnectorPoint PointX="4.5" PointY="2.047841796875" />
-          <ConnectorPoint PointX="5.25" PointY="2.047841796875" />
+          <ConnectorPoint PointX="4.5" PointY="2.1439925130208328" />
+          <ConnectorPoint PointX="5.25" PointY="2.1439925130208328" />
         </AssociationConnector>
         <AssociationConnector Association="integradorModel.FK_Pagamento_Matricula" ManuallyRouted="false">
           <ConnectorPoint PointX="4.5" PointY="3.625" />
           <ConnectorPoint PointX="4.875" PointY="3.25" />
-          <ConnectorPoint PointX="4.875" PointY="3.4898893229166674" />
-          <ConnectorPoint PointX="5.25" PointY="3.1148893229166679" />
+          <ConnectorPoint PointX="4.875" PointY="4.0090950520833335" />
+          <ConnectorPoint PointX="5.25" PointY="3.6340950520833335" />
         </AssociationConnector>
         <EntityTypeShape EntityType="integradorModel.Curso" Width="1.5" PointX="7.375" PointY="1" Height="3.1340950520833317" />
         <AssociationConnector Association="integradorModel.FK_Matricula_Curso" >
-          <ConnectorPoint PointX="7.375" PointY="3.8125025000000008" />
-          <ConnectorPoint PointX="4.5" PointY="3.8125025000000008" />
+          <ConnectorPoint PointX="7.375" PointY="3.8170475260416667" />
+          <ConnectorPoint PointX="5.150380859375" PointY="3.8170475260416663" />
+          <ConnectorPoint PointX="4.9837141927083337" PointY="3.8170475260416667" />
+          <ConnectorPoint PointX="4.958333333333333" PointY="3.8170475260416663" />
+          <ConnectorPoint PointX="4.791666666666667" PointY="3.8170475260416667" />
+          <ConnectorPoint PointX="4.5" PointY="3.8170475260416667" />
         </AssociationConnector>
         <EntityTypeShape EntityType="integradorModel.Aluno" Width="1.5" PointX="0.875" PointY="3.625" Height="3.9033007812499996" />
         <AssociationConnector Association="integradorModel.FK_Matricula_Aluno" >
@@ -509,6 +617,23 @@
           <ConnectorPoint PointX="3" PointY="4.9035953776041659" />
         </AssociationConnector>
         <EntityTypeShape EntityType="integradorModel.UF" Width="1.5" PointX="3.375" PointY="7.75" Height="1.5956835937499996" />
+        <EntityTypeShape EntityType="integradorModel.BandeiraCartao" Width="1.5" PointX="8.75" PointY="5.75" Height="1.7879850260416674" />
+        <AssociationConnector Association="integradorModel.FK_BandeiraCartao_FormaPagamento" >
+          <ConnectorPoint PointX="4.5" PointY="2.6222407695312491" />
+          <ConnectorPoint PointX="5" PointY="2.6222407695312491" />
+          <ConnectorPoint PointX="5" PointY="3.75" />
+          <ConnectorPoint PointX="5.0507617187500005" PointY="3.7499999999999996" />
+          <ConnectorPoint PointX="5.2174283854166665" PointY="3.75" />
+          <ConnectorPoint PointX="7.125" PointY="3.75" />
+          <ConnectorPoint PointX="7.125" PointY="4.576396484375" />
+          <ConnectorPoint PointX="9.5" PointY="4.576396484375" />
+          <ConnectorPoint PointX="9.5" PointY="5.75" />
+        </AssociationConnector>
+        <AssociationConnector Association="integradorModel.FK_Pagamento_BandeiraCartao" >
+          <ConnectorPoint PointX="9.9062525" PointY="5.75" />
+          <ConnectorPoint PointX="9.9062525" PointY="0.71875" />
+          <ConnectorPoint PointX="6.75" PointY="0.71875" />
+        </AssociationConnector>
       </Diagram>
     </Diagrams>
   </Designer>

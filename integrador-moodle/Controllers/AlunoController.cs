@@ -166,5 +166,10 @@ namespace integrador_moodle.Controllers
             Session.Abandon();
             return RedirectToAction("Index", "Home");
         }
+
+        internal Aluno GetAluno(int alunoUID)
+        {
+            return _dbcontext.Set<Aluno>().Where(a => a.alunoUID == alunoUID).FirstOrDefault();
+        }
     }
 }

@@ -12,18 +12,18 @@ namespace integrador_moodle.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class FormaPagamento
+    public partial class BandeiraCartao
     {
-        public FormaPagamento()
+        public BandeiraCartao()
         {
             this.Pagamento = new HashSet<Pagamento>();
-            this.BandeiraCartao = new HashSet<BandeiraCartao>();
         }
     
+        public int bandeiraCartaoUID { get; set; }
+        public string nome { get; set; }
         public int formaPagamentoUID { get; set; }
-        public string descricao { get; set; }
     
+        public virtual FormaPagamento FormaPagamento { get; set; }
         public virtual ICollection<Pagamento> Pagamento { get; set; }
-        public virtual ICollection<BandeiraCartao> BandeiraCartao { get; set; }
     }
 }

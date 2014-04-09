@@ -33,6 +33,8 @@
     <EntitySetMapping Name="Pagamento">
       <EntityTypeMapping TypeName="integradorModel.Pagamento">
         <MappingFragment StoreEntitySet="Pagamento">
+          <ScalarProperty Name="bandeiraUID" ColumnName="bandeiraUID" />
+          <ScalarProperty Name="transacaoUID" ColumnName="transacaoUID" />
           <ScalarProperty Name="pagamentoUID" ColumnName="pagamentoUID" />
           <ScalarProperty Name="matriculaUID" ColumnName="matriculaUID" />
           <ScalarProperty Name="formaPagamentoUID" ColumnName="formaPagamentoUID" />
@@ -94,6 +96,15 @@
           <ScalarProperty Name="estado" ColumnName="estado" />
           <ScalarProperty Name="abr" ColumnName="abr" />
           <ScalarProperty Name="ufUID" ColumnName="ufUID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="BandeiraCartao">
+      <EntityTypeMapping TypeName="integradorModel.BandeiraCartao">
+        <MappingFragment StoreEntitySet="BandeiraCartao">
+          <ScalarProperty Name="formaPagamentoUID" ColumnName="formaPagamentoUID" />
+          <ScalarProperty Name="nome" ColumnName="nome" />
+          <ScalarProperty Name="bandeiraCartaoUID" ColumnName="bandeiraCartaoUID" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

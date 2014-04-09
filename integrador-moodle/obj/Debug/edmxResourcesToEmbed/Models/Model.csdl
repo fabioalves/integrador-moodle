@@ -29,6 +29,15 @@
       <End Role="Matricula" EntitySet="Matricula" />
     </AssociationSet>
     <EntitySet Name="UF" EntityType="integradorModel.UF" />
+    <EntitySet Name="BandeiraCartao" EntityType="integradorModel.BandeiraCartao" />
+    <AssociationSet Name="FK_BandeiraCartao_FormaPagamento" Association="integradorModel.FK_BandeiraCartao_FormaPagamento">
+      <End Role="FormaPagamento" EntitySet="FormaPagamento" />
+      <End Role="BandeiraCartao" EntitySet="BandeiraCartao" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Pagamento_BandeiraCartao" Association="integradorModel.FK_Pagamento_BandeiraCartao">
+      <End Role="BandeiraCartao" EntitySet="BandeiraCartao" />
+      <End Role="Pagamento" EntitySet="Pagamento" />
+    </AssociationSet>
   </EntityContainer>
   <EntityType Name="Certificado">
     <Key>
@@ -47,6 +56,7 @@
     <Property Name="formaPagamentoUID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="descricao" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
     <NavigationProperty Name="Pagamento" Relationship="integradorModel.FK_Pagamento_FormaPagamento" FromRole="FormaPagamento" ToRole="Pagamento" />
+    <NavigationProperty Name="BandeiraCartao" Relationship="integradorModel.FK_BandeiraCartao_FormaPagamento" FromRole="FormaPagamento" ToRole="BandeiraCartao" />
   </EntityType>
   <EntityType Name="Matricula">
     <Key>
@@ -73,6 +83,9 @@
     <Property Name="parcelas" Type="Int32" Nullable="false" />
     <NavigationProperty Name="FormaPagamento" Relationship="integradorModel.FK_Pagamento_FormaPagamento" FromRole="Pagamento" ToRole="FormaPagamento" />
     <NavigationProperty Name="Matricula" Relationship="integradorModel.FK_Pagamento_Matricula" FromRole="Pagamento" ToRole="Matricula" />
+    <Property Type="String" Name="transacaoUID" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="bandeiraUID" />
+    <NavigationProperty Name="BandeiraCartao" Relationship="integradorModel.FK_Pagamento_BandeiraCartao" FromRole="Pagamento" ToRole="BandeiraCartao" />
   </EntityType>
   <EntityType Name="UsuarioAdmin">
     <Key>
@@ -188,4 +201,38 @@
     <Property Type="String" Name="abr" Nullable="false" MaxLength="2" FixedLength="true" Unicode="true" />
     <Property Type="String" Name="estado" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
   </EntityType>
+  <EntityType Name="BandeiraCartao">
+    <Key>
+      <PropertyRef Name="bandeiraCartaoUID" />
+    </Key>
+    <Property Type="Int32" Name="bandeiraCartaoUID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Type="String" Name="nome" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="formaPagamentoUID" Nullable="false" />
+    <NavigationProperty Name="FormaPagamento" Relationship="integradorModel.FK_BandeiraCartao_FormaPagamento" FromRole="BandeiraCartao" ToRole="FormaPagamento" />
+    <NavigationProperty Name="Pagamento" Relationship="integradorModel.FK_Pagamento_BandeiraCartao" FromRole="BandeiraCartao" ToRole="Pagamento" />
+  </EntityType>
+  <Association Name="FK_BandeiraCartao_FormaPagamento">
+    <End Type="integradorModel.FormaPagamento" Role="FormaPagamento" Multiplicity="1" />
+    <End Type="integradorModel.BandeiraCartao" Role="BandeiraCartao" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="FormaPagamento">
+        <PropertyRef Name="formaPagamentoUID" />
+      </Principal>
+      <Dependent Role="BandeiraCartao">
+        <PropertyRef Name="formaPagamentoUID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Pagamento_BandeiraCartao">
+    <End Type="integradorModel.BandeiraCartao" Role="BandeiraCartao" Multiplicity="0..1" />
+    <End Type="integradorModel.Pagamento" Role="Pagamento" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="BandeiraCartao">
+        <PropertyRef Name="bandeiraCartaoUID" />
+      </Principal>
+      <Dependent Role="Pagamento">
+        <PropertyRef Name="bandeiraUID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
 </Schema>

@@ -19,5 +19,11 @@ namespace integrador_moodle.Areas.Discente.Controllers
             return View();
         }
 
+        public ActionResult InscricaoRealizada()
+        {
+            TempData["mensagem"] = "Inscrição realizada com sucesso!";
+            return RedirectToAction("Index");
+        }
+
     }
 }
