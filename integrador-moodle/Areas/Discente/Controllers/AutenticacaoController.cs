@@ -56,8 +56,9 @@ namespace integrador_moodle.Areas.Discente.Controllers
             integrador_moodle.Areas.Admin.Utility.SimpleSessionPersister.Username = null;
             integrador_moodle.Areas.Admin.Utility.SimpleSessionPersister.Id = null;
             Session.Abandon();
-
-            return RedirectToAction("Index", "Home", new { area = "Default" });
+            
+            return Redirect(Url.Content("/Home/Index"));
+            //return RedirectToAction("Index", "Home", new { area = "Default" });
         }
     }
 }

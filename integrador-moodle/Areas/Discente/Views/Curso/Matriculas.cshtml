@@ -19,7 +19,7 @@
 {
     <tr>
         <td>@mat.Matricula.Curso.fullname</td>
-        <td>@mat.Matricula.dataInscricao</td>
+        <td>@mat.Matricula.dataInscricao.ToShortDateString()</td>
         <td>
         @if (mat.Pagamento.situacaoTransacao.HasValue)
         {
