@@ -56,7 +56,8 @@ namespace integrador_moodle.Controllers
             {
                 alunoUID = aluno.alunoUID,
                 cursoUID = id,
-                status = 1
+                status = 1,
+                dataInscricao = DateTime.Now
             };
 
             _dbcontext.Set<Matricula>().Add(matricula);

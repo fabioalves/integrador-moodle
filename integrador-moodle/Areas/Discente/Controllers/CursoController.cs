@@ -48,8 +48,14 @@ namespace integrador_moodle.Areas.Discente.Controllers
                 XmlDocument xmlDoc = service.LoadToXml(responseStream, Encoding.Default);
                                
                 XmlNodeList mensagem = xmlDoc.DocumentElement.GetElementsByTagName("mensagem");
-                
-                matricula.situacao = mensagem[1].InnerText;
+                if (mensagem.Count > 1)
+                {
+                    matricula.situacao = mensagem[1].InnerText;
+                }
+                else
+                {
+                    matricula.situacao = "Em processamento";
+                }
                 mps.Add(matricula);
             }
 
