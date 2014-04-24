@@ -151,6 +151,9 @@ namespace integrador_moodle.Controllers
                 }
 
                 Session["aluno"] = aluno;
+                integrador_moodle.Areas.Admin.Utility.SimpleSessionPersister.Username = aluno.login;
+                integrador_moodle.Areas.Admin.Utility.SimpleSessionPersister.Id = aluno.alunoUID.ToString();
+
                 return RedirectToAction("Index", "Pagamento", new { id = id });
             }
             else

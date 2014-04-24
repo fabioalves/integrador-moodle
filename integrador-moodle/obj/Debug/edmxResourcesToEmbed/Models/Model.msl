@@ -33,6 +33,7 @@
     <EntitySetMapping Name="Pagamento">
       <EntityTypeMapping TypeName="integradorModel.Pagamento">
         <MappingFragment StoreEntitySet="Pagamento">
+          <ScalarProperty Name="situacaoTransacao" ColumnName="situacaoTransacao" />
           <ScalarProperty Name="bandeiraUID" ColumnName="bandeiraUID" />
           <ScalarProperty Name="transacaoUID" ColumnName="transacaoUID" />
           <ScalarProperty Name="pagamentoUID" ColumnName="pagamentoUID" />

@@ -86,6 +86,7 @@
     <Property Type="String" Name="transacaoUID" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Type="Int32" Name="bandeiraUID" />
     <NavigationProperty Name="BandeiraCartao" Relationship="integradorModel.FK_Pagamento_BandeiraCartao" FromRole="Pagamento" ToRole="BandeiraCartao" />
+    <Property Type="Int32" Name="situacaoTransacao" />
   </EntityType>
   <EntityType Name="UsuarioAdmin">
     <Key>

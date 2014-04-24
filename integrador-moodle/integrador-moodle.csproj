@@ -153,6 +153,7 @@
     <Compile Include="Areas\Discente\Controllers\CursoController.cs" />
     <Compile Include="Areas\Discente\Controllers\IndexController.cs" />
     <Compile Include="Areas\Discente\DiscenteAreaRegistration.cs" />
+    <Compile Include="Areas\Discente\ViewModels\VmMatriculaPagamento.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AlunoController.cs" />
     <Compile Include="Controllers\CursoController.cs" />

@@ -1,4 +1,4 @@
-﻿@model IEnumerable<integrador_moodle.Models.Matricula>
+﻿@model IEnumerable<integrador_moodle.Areas.Discente.ViewModels.VmMatriculaPagamento>
 
 @{
     ViewBag.Title = "Minhas Matrículas";
@@ -18,9 +18,18 @@
 @foreach (var mat in Model)
 {
     <tr>
-        <td>@mat.Curso.fullname</td>
-        <td>@mat.dataInscricao</td>
-        <td>@mat.status</td>
+        <td>@mat.Matricula.Curso.fullname</td>
+        <td>@mat.Matricula.dataInscricao</td>
+        <td>
+        @if (mat.Pagamento.situacaoTransacao.HasValue)
+        {
+            <text>@mat.Pagamento.situacaoTransacao.Value</text>
+        }
+        else
+        {
+            <text>@mat.situacao</text>
+        }
+        </td>
     </tr>
 }
 </table>
