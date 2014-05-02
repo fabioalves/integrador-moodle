@@ -63,6 +63,8 @@ namespace integrador_moodle.Areas.Discente.Controllers
             return View(mps);
         }
 
+     
+
         public string GetXmlConsulta(int inscricaoID, string tid)
         {
             XDocument doc = new XDocument(

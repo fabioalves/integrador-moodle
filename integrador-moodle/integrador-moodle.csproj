@@ -403,6 +403,7 @@
     <Content Include="Areas\Discente\Views\Curso\Matriculas.cshtml" />
     <Content Include="Areas\Discente\Views\Autenticacao\Login.cshtml" />
     <Content Include="Areas\Discente\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\Discente\Views\Curso\LoginMoodle.cshtml" />
     <None Include="Models\Model.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>Model.Context.cs</LastGenOutput>

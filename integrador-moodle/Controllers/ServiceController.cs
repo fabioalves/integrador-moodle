@@ -36,6 +36,8 @@ namespace integrador_moodle.Controllers
             return request.GetResponse().GetResponseStream();
         }
 
+        
+
         internal System.Xml.XmlDocument LoadToXml(Stream responseStream, Encoding encoding)
         {
             StreamReader reader = new StreamReader(responseStream, encoding);
