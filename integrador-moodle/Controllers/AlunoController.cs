@@ -109,7 +109,7 @@ namespace integrador_moodle.Controllers
                     estado = model.estado,
                     login = model.email,
                     nome = model.nome + " " + model.sobrenome,
-                    senha = Utils.SecurityUtil.CalculateMd5Hash(model.senha),
+                    senha = model.senha,
                     sexo = model.sexo,
                     telefoneFixo = model.telefoneFixo
                 };

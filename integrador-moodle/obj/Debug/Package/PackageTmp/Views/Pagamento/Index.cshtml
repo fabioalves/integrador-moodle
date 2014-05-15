@@ -4,7 +4,7 @@
     ViewBag.Title = "Pagamento";
     Layout = "~/Views/Shared/_Layout.cshtml";
     integrador_moodle.Models.Curso curso = ViewBag.curso;
-    List<integrador_moodle.Models.FormaPagamento> formasPagamento = ViewBag.formasPagamento;
+    List<integrador_moodle.Models.BandeiraCartao> bandeiras = ViewBag.bandeiras;
 }
 
 <p>
@@ -20,14 +20,22 @@
         <h3 class="titulo_noticia">Escolha a forma de pagamento</h3>
         <br /><br />
         <p>
-        @foreach (var forma in formasPagamento)
+        @foreach (var bandeira in bandeiras)
         {
             <label class="radio">
-            @Html.RadioButton("formapagamento", forma.formaPagamentoUID)
-            @forma.descricao
+            @Html.RadioButton("bandeira", bandeira.bandeiraCartaoUID)
+            @bandeira.nome
             </label>
         }  
         </p>      
+        <p>
+            <label>Quantidade de Parcelas</label>
+            <select name="parcela">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+            </select>
+        </p>
         <input type="submit" class="btn" value="Comprar" />
         
         

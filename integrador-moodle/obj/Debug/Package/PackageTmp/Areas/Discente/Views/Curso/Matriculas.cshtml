@@ -1,4 +1,4 @@
-﻿@model IEnumerable<integrador_moodle.Models.Matricula>
+﻿@model IEnumerable<integrador_moodle.Areas.Discente.ViewModels.VmMatriculaPagamento>
 
 @{
     ViewBag.Title = "Minhas Matrículas";
@@ -14,13 +14,30 @@
     <th>Nome do Curso</th>
     <th>Data de Inscrição</th>
     <th>Situação</th>
+    <th>Ambiente</th>
 </tr>
 @foreach (var mat in Model)
 {
     <tr>
-        <td>@mat.Curso.fullname</td>
-        <td>@mat.dataInscricao</td>
-        <td>@mat.status</td>
+        <td>@mat.Matricula.Curso.fullname</td>
+        <td>@mat.Matricula.dataInscricao.ToShortDateString()</td>
+        <td>
+        @if (mat.Pagamento.situacaoTransacao.HasValue)
+        {
+            <text>@mat.Pagamento.situacaoTransacao.Value</text>
+        }
+        else
+        {
+            <text>@mat.situacao</text>
+        }
+        </td>
+        <td>
+                <form  method='post' action='http://192.168.33.10/moodle/login/index.php'> 
+				<input name='username' type='hidden' id='username' value='@mat.Matricula.Aluno.login' />
+				<input name='password' type='hidden' id='password' value='@mat.Matricula.Aluno.senha' />
+				<input name='urlSolicitada' type='hidden' id='urlSolicitada' value='http://192.168.33.10/moodle/course/view.php?id=@mat.Matricula.Curso.idmoodle' />
+				<input type='submit' name='button' id='button'  value='Ir para o ambiente' /></form>
+        </td>
     </tr>
 }
 </table>
